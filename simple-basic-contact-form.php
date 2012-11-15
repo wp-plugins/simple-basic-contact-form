@@ -450,7 +450,7 @@ function scf_render_form() {
 						<div class="toggle default-hidden">
 							<div class="mm-panel-overview">
 								<p>
-									<strong><?php echo $scf_plugin; ?></strong> <?php _e('(SCF) is a simple basic contact form for your WordPress-powered website. Automatically sends a carbon copy to the sender.'); ?>
+									<strong><?php echo $scf_plugin; ?></strong> <?php _e('(SBCF) is a simple basic contact form for your WordPress-powered website. Automatically sends a carbon copy to the sender.'); ?>
 									<?php _e('Simply choose your options, then add the shortcode to any post or page to display the contact form. For a contact form with more options try '); ?> 
 									<a href="http://perishablepress.com/contact-coldform/">Contact Coldform</a>.
 								</p>
@@ -458,7 +458,7 @@ function scf_render_form() {
 									<li><?php _e('To configure the contact form, visit the'); ?> <a id="mm-panel-primary-link" href="#mm-panel-primary"><?php _e('Options panel'); ?></a>.</li>
 									<li><?php _e('For the shortcode and template tag, visit'); ?> <a id="mm-panel-secondary-link" href="#mm-panel-secondary"><?php _e('Shortcodes &amp; Template Tags'); ?></a>.</li>
 									<li><?php _e('To restore default settings, visit'); ?> <a id="mm-restore-settings-link" href="#mm-restore-settings"><?php _e('Restore Default Options'); ?></a>.</li>
-									<li><?php _e('For more information check the <code>readme.txt</code> and'); ?> <a href="<?php echo $scf_homeurl; ?>"><?php _e('SCF Homepage'); ?></a>.</li>
+									<li><?php _e('For more information check the <code>readme.txt</code> and'); ?> <a href="<?php echo $scf_homeurl; ?>"><?php _e('SBCF Homepage'); ?></a>.</li>
 								</ul>
 							</div>
 						</div>
