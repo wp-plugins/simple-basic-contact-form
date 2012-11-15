@@ -399,7 +399,7 @@ function scf_validate_options($input) {
 add_action ('admin_menu', 'scf_add_options_page');
 function scf_add_options_page() {
 	global $scf_plugin;
-	add_options_page($scf_plugin, $scf_plugin, 'manage_options', __FILE__, 'scf_render_form');
+	add_options_page($scf_plugin, 'SBCF', 'manage_options', __FILE__, 'scf_render_form');
 }
 
 // create the options page
