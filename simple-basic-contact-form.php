@@ -13,7 +13,7 @@
 
 // NO EDITING REQUIRED - PLEASE SET PREFERENCES IN THE WP ADMIN!
 
-$scf_plugin  = __('Simple Contact Form');
+$scf_plugin  = __('Simple Basic Contact Form');
 $scf_options = get_option('scf_options');
 $scf_path    = plugin_basename(__FILE__); // 'simple-basic-contact-form/simple-basic-contact-form.php';
 $scf_homeurl = 'http://perishablepress.com/simple-basic-contact-form/';
