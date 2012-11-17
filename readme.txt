@@ -19,9 +19,9 @@ Simple Basic Contact Form is a clean, secure, plug-n-play contact form for WordP
 
 == Description ==
 
-[Simple Basic Contact Form](http://perishablepress.com/simple-basic-contact-form/) delivers clean code, solid performance, and ease of use. No frills, no gimmicks, only pure contact-form satisfaction. 
+[Simple Basic Contact Form](http://perishablepress.com/simple-basic-contact-form/) is a clean, secure, plug-n-play contact form for WordPress. Minimal yet flexible, SBCF delivers clean code, solid performance, and ease of use. No frills, no gimmicks, just a straight-up contact form that's easy to set up and style for any theme. Note: for a contact form with more options and features, check out [Contact Coldform](http://perishablepress.com/contact-coldform/).
 
-**[Demo](http://bluefeed.net/wordpress/simple-basic-contact-form/)**
+**[Check out the SBCF Demo](http://bluefeed.net/wordpress/simple-basic-contact-form/)**
 
 **Overview**
 
