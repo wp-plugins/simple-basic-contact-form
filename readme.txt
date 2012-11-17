@@ -64,6 +64,8 @@ Simple Basic Contact Form is a clean, secure, plug-n-play contact form for WordP
 
 == Installation ==
 
+**Installation**
+
 Typical plugin install: upload, activate, and customize in the WP Admin.
 
 1. Unzip and upload the entire directory to your "plugins" folder and activate.
