@@ -75,9 +75,11 @@ Shortcode: `[simple_contact_form]`
 
 Template tag: `<?php if (function_exists('simple_contact_form')) simple_contact_form(); ?>`
 
-Check out the [SCF Demo](http://bluefeed.net/wordpress/simple-basic-contact-form/).
+Check out the [SBCF Demo](http://bluefeed.net/wordpress/simple-basic-contact-form/).
 
-For more information, visit the [SCF Homepage](http://perishablepress.com/simple-basic-contact-form/).
+For more information, visit the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/).
+
+For a complete set of CSS hooks available for the conact form, visit the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/#markup-styles).
 
 == Upgrade Notice ==
 
@@ -85,7 +87,7 @@ To upgrade the plugin, remove old version and replace with new version. Nothing 
 
 == Screenshots ==
 
-Screenshots available at the [SCF Homepage](http://perishablepress.com/simple-basic-contact-form/).
+Screenshots available at the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/#screenshots).
 
 == Changelog ==
 
@@ -95,7 +97,7 @@ Screenshots available at the [SCF Homepage](http://perishablepress.com/simple-ba
 
 == Frequently Asked Questions ==
 
-To ask a question, visit the [SCF Homepage](http://perishablepress.com/simple-basic-contact-form/) or [contact me](http://perishablepress.com/contact/).
+To ask a question, visit the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/) or [contact me](http://perishablepress.com/contact/).
 
 == Donations ==
 
