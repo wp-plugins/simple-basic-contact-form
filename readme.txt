@@ -75,11 +75,11 @@ Shortcode: `[simple_contact_form]`
 
 Template tag: `<?php if (function_exists('simple_contact_form')) simple_contact_form(); ?>`
 
-Check out the [SBCF Demo](http://bluefeed.net/wordpress/simple-basic-contact-form/).
+= Resources =
 
-For more information, visit the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/).
-
-For a complete set of CSS hooks available for the conact form, visit the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/#markup-styles).
+* Check out the [SBCF Demo](http://bluefeed.net/wordpress/simple-basic-contact-form/).
+* For more information, visit the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/).
+* For a complete set of CSS hooks available for the conact form, visit the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/#markup-styles).
 
 == Upgrade Notice ==
 
