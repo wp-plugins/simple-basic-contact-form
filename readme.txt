@@ -71,15 +71,19 @@ Typical plugin install: upload, activate, and customize in the WP Admin.
 3. Use the template tag to display the SBCF anywhere in your theme.
 4. Visit the SBCF Settings Page to configure your options and for more information.
 
-Shortcode: `[simple_contact_form]`
+**Shortcode**
 
-Template tag: `<?php if (function_exists('simple_contact_form')) simple_contact_form(); ?>`
+	[simple_contact_form]
 
-= Resources =
+**Template tag**
 
-* Check out the [SBCF Demo](http://bluefeed.net/wordpress/simple-basic-contact-form/).
-* For more information, visit the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/).
-* For a complete set of CSS hooks available for the conact form, visit the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/#markup-styles).
+	<?php if (function_exists('simple_contact_form')) simple_contact_form(); ?>
+
+**Resources**
+
+* Check out the [SBCF Demo](http://bluefeed.net/wordpress/simple-basic-contact-form/)
+* Visit the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/)
+* View a [complete set of CSS hooks](http://perishablepress.com/simple-basic-contact-form/#markup-styles)
 
 == Upgrade Notice ==
 
