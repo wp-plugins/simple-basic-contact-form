@@ -9,8 +9,8 @@ Contributors: specialk
 Donate link: http://digwp.com/book/
 Requires at least: 3.4
 Tested up to: 3.4.2
-Stable tag: 20121103
-Version: 20121103
+Stable tag: 20121205
+Version: 20121205
 License: GPL v2
 Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
 Tags: contact, form, contact form, email, mail, captcha
@@ -97,9 +97,24 @@ Screenshots available at the [SBCF Homepage](http://perishablepress.com/simple-b
 
 == Changelog ==
 
-**Version 0.88.0**
+**Version 20121205**
 
-* 20121103.
+* Now hides ugly fieldset borders by default
+* Errors now include placeholder attributes
+* Anti-spam placeholder now displays challenge question
+* Removed blank line from successful message results
+* You can now use markup in custom prepend/append content
+* Custom CSS now loads on successful result output
+* Wrapped successful result output with div #scf_success
+* Segregated custom content for form and success results
+* Cleaned up some code formatting
+* Moved .clear div to optional custom content
+* Added link to SBCF CSS Hooks in Appearance options
+* Fixed the plugin's built-in time offset
+
+**Version 20121103**
+
+Initial release.
 
 == Frequently Asked Questions ==
 

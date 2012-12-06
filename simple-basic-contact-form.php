@@ -5,7 +5,7 @@
 	Description: Simple basic plug-n-play contact form for WordPress.
 	Author: Jeff Starr
 	Author URI: http://monzilla.biz/
-	Version: 20121103
+	Version: 20121205
 	License: GPL v2
 	Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
 	Tags: contact, form, contact form, email, mail, captcha
@@ -17,7 +17,7 @@ $scf_plugin  = __('Simple Basic Contact Form');
 $scf_options = get_option('scf_options');
 $scf_path    = plugin_basename(__FILE__); // 'simple-basic-contact-form/simple-basic-contact-form.php';
 $scf_homeurl = 'http://perishablepress.com/simple-basic-contact-form/';
-$scf_version = '20121103';
+$scf_version = '20121205';
 
 // require minimum version of WordPress
 add_action('admin_init', 'scf_require_wp_version');
@@ -106,27 +106,27 @@ function scf_input_filter() {
 	if(empty($_POST['scf_name'])) {
 		$pass = FALSE;
 		$fail = 'empty';
-		$scf_strings['name'] = '<input class="scf_error" name="scf_name" id="scf_name" type="text" size="33" maxlength="99" value="'. htmlentities($_POST['scf_name']) .'" ' . $scf_options['scf_style'] . ' />';
+		$scf_strings['name'] = '<input class="scf_error" name="scf_name" id="scf_name" type="text" size="33" maxlength="99" value="'. htmlentities($_POST['scf_name']) .'" ' . $scf_options['scf_style'] . ' placeholder="Your name" />';
 	}
 	if(!is_email($_POST['scf_email'])) {
 		$pass = FALSE; 
 		$fail = 'empty';
-		$scf_strings['email'] = '<input class="scf_error" name="scf_email" id="scf_email" type="text" size="33" maxlength="99" value="'. htmlentities($_POST['scf_email']) .'" ' . $scf_options['scf_style'] . ' />';
+		$scf_strings['email'] = '<input class="scf_error" name="scf_email" id="scf_email" type="text" size="33" maxlength="99" value="'. htmlentities($_POST['scf_email']) .'" ' . $scf_options['scf_style'] . ' placeholder="Your email" />';
 	}
 	if (empty($_POST['scf_response'])) {
 		$pass = FALSE; 
 		$fail = 'empty';
-		$scf_strings['response'] = '<input class="scf_error" name="scf_response" id="scf_response" type="text" size="33" maxlength="99" value="'. htmlentities($_POST['scf_response']) .'" ' . $scf_options['scf_style'] . ' />';
+		$scf_strings['response'] = '<input class="scf_error" name="scf_response" id="scf_response" type="text" size="33" maxlength="99" value="'. htmlentities($_POST['scf_response']) .'" ' . $scf_options['scf_style'] . ' placeholder="' . $scf_options['scf_question'] . '" />';
 	}
 	if (!scf_spam_question($_POST['scf_response'])) {
 		$pass = FALSE;
 		$fail = 'wrong';
-		$scf_strings['response'] = '<input class="scf_error" name="scf_response" id="scf_response" type="text" size="33" maxlength="99" value="'. htmlentities($_POST['scf_response']) .'" ' . $scf_options['scf_style'] . ' />';
+		$scf_strings['response'] = '<input class="scf_error" name="scf_response" id="scf_response" type="text" size="33" maxlength="99" value="'. htmlentities($_POST['scf_response']) .'" ' . $scf_options['scf_style'] . ' placeholder="' . $scf_options['scf_question'] . '" />';
 	}
 	if(empty($_POST['scf_message'])) {
 		$pass = FALSE; 
 		$fail = 'empty';
-		$scf_strings['message'] = '<textarea class="scf_error" name="scf_message" id="scf_message" cols="33" rows="7" ' . $scf_options['scf_style'] . '>'. $_POST['scf_message'] .'</textarea>';
+		$scf_strings['message'] = '<textarea class="scf_error" name="scf_message" id="scf_message" cols="33" rows="7" ' . $scf_options['scf_style'] . ' placeholder="Your message">'. $_POST['scf_message'] .'</textarea>';
 	}
 	if(scf_malicious_input($_POST['scf_name']) || scf_malicious_input($_POST['scf_email'])) {
 		$pass = false; 
@@ -189,6 +189,10 @@ function scf_process_contact_form($content='') {
 	$prepend = stripslashes($scf_options['scf_prepend']);
 	$append  = stripslashes($scf_options['scf_append']);
 
+	if ($scf_options['scf_css'] !== '') {
+		$scf_custom = '<style>' . $scf_options['scf_css'] . '</style>';
+	} else { $scf_custom = ''; }
+
 	$headers   = "MIME-Version: 1.0\n";
 	$headers  .= "From: $name <$email>\n";
 	$headers  .= "Content-Type: text/plain; charset=\"" . get_settings('blog_charset') . "\"";
@@ -219,13 +223,11 @@ Agent:  $agent
 	wp_mail($recipient, $topic, $fullmsg, $headers);
 	wp_mail($email, $topic, $fullmsg, $headers);
 
-	$results = ($prepend . $success . '
+	$results = ($prepend . '<div id="scf_success">' . $success . '
 <pre>Name:       '. $name    .'
 Email:      '. $email   .'
 Date:       '. $date .'
-Message: 
-
-'. $message .'</pre><p class="scf_reset">[ <a href="'. $form .'">Click here to reset the form</a> ]</p>' . $append);
+Message:    '. $message .'</pre><p class="scf_reset">[ <a href="'. $form .'">Click here to reset the form</a> ]</p></div>' . $scf_custom . $append);
 
 	echo $results;
 }
@@ -240,11 +242,19 @@ function scf_display_contact_form() {
 	$messtext = stripslashes($scf_options['scf_messtext']);
 	$offset   = $scf_options['sfc_offset'];
 	
+	if ($scf_options['scf_preform'] !== '') {
+		$scf_preform = $scf_options['scf_preform'];
+	} else { $scf_preform = ''; }
+
+	if ($scf_options['scf_appform'] !== '') {
+		$scf_appform = $scf_options['scf_appform'];
+	} else { $scf_appform = ''; }
+
 	if ($scf_options['scf_css'] !== '') {
 		$scf_custom = '<style>' . $scf_options['scf_css'] . '</style>';
 	} else { $scf_custom = ''; }
 
-	$scf_form = ($scf_strings['error'] . '
+	$scf_form = ($scf_preform . $scf_strings['error'] . '
 		<div id="simple-contact-form">
 			<form action="'. get_permalink() .'" method="post">
 				<fieldset class="scf-name">
@@ -269,9 +279,7 @@ function scf_display_contact_form() {
 				</div>
 			</form>
 		</div>
-		' . $scf_custom . '
-		<div class="clear">&nbsp;</div>
-	');
+		' . $scf_custom . $scf_appform);
 
 	return $scf_form;
 }
@@ -327,7 +335,9 @@ function scf_add_defaults() {
 			'scf_style' => 'style=\'border: 1px solid #CC0000;\'',
 			'scf_prepend' => '',
 			'scf_append' => '',
-			'scf_css' => '#simple-contact-form fieldset { width: 100%; overflow: hidden; margin: 5px 0; } #simple-contact-form fieldset input { float: left; width: 60%; } #simple-contact-form textarea { float: left; clear: both; width: 95%; } #simple-contact-form label { float: left; clear: both; width: 30%; margin-top: 3px; line-height: 1.8; font-size: 90%; }',
+			'scf_css' => '#simple-contact-form fieldset { width: 100%; overflow: hidden; margin: 5px 0; border: 0; } #simple-contact-form fieldset input { float: left; width: 60%; } #simple-contact-form textarea { float: left; clear: both; width: 95%; } #simple-contact-form label { float: left; clear: both; width: 30%; margin-top: 3px; line-height: 1.8; font-size: 90%; }',
+			'scf_preform' => '',
+			'scf_appform' => '<div style=\'clear:both;\'>&nbsp;</div>',
 		);
 		update_option('scf_options', $arr);
 	}
@@ -362,7 +372,7 @@ function scf_validate_options($input) {
 
 	// dealing with kses
 	global $allowedposttags;
-	$allowed_atts = array('align'=>array(), 'class'=>array(), 'id'=>array(), 'dir'=>array(), 'lang'=>array(), 'style'=>array(), 'xml:lang'=>array(), 'src'=>array(), 'alt'=>array());
+	$allowed_atts = array('align'=>array(), 'class'=>array(), 'id'=>array(), 'dir'=>array(), 'lang'=>array(), 'style'=>array(), 'xml:lang'=>array(), 'src'=>array(), 'alt'=>array(), 'href'=>array(), 'title'=>array());
 
 	$allowedposttags['strong'] = $allowed_atts;
 	$allowedposttags['small'] = $allowed_atts;
@@ -387,9 +397,11 @@ function scf_validate_options($input) {
 	$input['scf_error']   = wp_kses_post($input['scf_error'], $allowedposttags);
 	$input['scf_spam']    = wp_kses_post($input['scf_spam'], $allowedposttags);
 	$input['scf_style']   = wp_kses_post($input['scf_style'], $allowedposttags);
-	
-	$input['scf_prepend'] = wp_filter_nohtml_kses($input['scf_prepend']);
-	$input['scf_append'] = wp_filter_nohtml_kses($input['scf_append']);
+	$input['scf_prepend'] = wp_kses_post($input['scf_prepend'], $allowedposttags);
+	$input['scf_append']  = wp_kses_post($input['scf_append'], $allowedposttags);
+	$input['scf_preform'] = wp_kses_post($input['scf_preform'], $allowedposttags);
+	$input['scf_appform'] = wp_kses_post($input['scf_appform'], $allowedposttags);
+
 	$input['scf_css'] = wp_filter_nohtml_kses($input['scf_css']);
 
 	return $input;
@@ -511,7 +523,7 @@ function scf_render_form() {
 											<input type="text" size="50" maxlength="200" name="scf_options[scf_offset]" value="<?php echo $scf_options['scf_offset']; ?>" />
 											<div class="mm-item-caption">
 												<?php _e('Please specify any time offset here. If no offset, enter "0" (zero).'); ?><br />
-												<?php _e('Current Coldform time:'); ?> <?php echo date("l, F jS, Y @ g:i a", time()+$offset*60*60); ?>
+												<?php _e('Current time:'); ?> <?php echo date("l, F jS, Y @ g:i a", time() + $scf_options['scf_offset']*60*60); ?>
 											</div>
 										</td>
 									</tr>
@@ -523,7 +535,8 @@ function scf_render_form() {
 									<tr>
 										<th scope="row"><label class="description" for="scf_options[scf_css]"><?php _e('Custom CSS styles'); ?></label></th>
 										<td><textarea class="textarea" rows="7" cols="55" name="scf_options[scf_css]"><?php echo esc_textarea($scf_options['scf_css']); ?></textarea>
-										<div class="mm-item-caption"><?php _e('Add some CSS to style the contact form. Note: do not include the <code>&lt;style&gt;</code> tags.'); ?></div></td>
+										<div class="mm-item-caption"><?php _e('Add some CSS to style the contact form. Note: do not include the <code>&lt;style&gt;</code> tags.<br />
+											Note: visit <a href="http://m0n.co/i" target="_blank">m0n.co/i</a> for complete list of CSS hooks.'); ?></div></td>
 									</tr>
 								</table>
 							</div>
@@ -573,14 +586,24 @@ function scf_render_form() {
 										<div class="mm-item-caption"><?php _e('Here you may specify the default CSS for error fields, or add other attributes.'); ?></div></td>
 									</tr>
 									<tr>
-										<th scope="row"><label class="description" for="scf_options[scf_prepend]"><?php _e('Prepend Markup'); ?></label></th>
-										<td><input type="text" size="50" maxlength="200" name="scf_options[scf_prepend]" value="<?php echo $scf_options['scf_prepend']; ?>" />
-										<div class="mm-item-caption"><?php _e('Add some text/markup to appear <em>before</em> the submitted form results (optional).'); ?></div></td>
+										<th scope="row"><label class="description" for="scf_options[scf_preform]"><?php _e('Custom content before the form'); ?></label></th>
+										<td><textarea class="textarea" rows="3" cols="55" name="scf_options[scf_preform]"><?php echo esc_textarea($scf_options['scf_preform']); ?></textarea>
+										<div class="mm-item-caption"><?php _e('Add some text/markup to appear <em>before</em> the submitted contact form (optional).'); ?></div></td>
 									</tr>
 									<tr>
-										<th scope="row"><label class="description" for="scf_options[scf_append]"><?php _e('Append Markup'); ?></label></th>
-										<td><input type="text" size="50" maxlength="200" name="scf_options[scf_append]" value="<?php echo $scf_options['scf_append']; ?>" />
-										<div class="mm-item-caption"><?php _e('Add some text/markup to appear <em>after</em> the submitted form results (optional).'); ?></div></td>
+										<th scope="row"><label class="description" for="scf_options[scf_appform]"><?php _e('Custom content after the form'); ?></label></th>
+										<td><textarea class="textarea" rows="3" cols="55" name="scf_options[scf_appform]"><?php echo esc_textarea($scf_options['scf_appform']); ?></textarea>
+										<div class="mm-item-caption"><?php _e('Add some text/markup to appear <em>after</em> the submitted contact form (optional).'); ?></div></td>
+									</tr>
+									<tr>
+										<th scope="row"><label class="description" for="scf_options[scf_prepend]"><?php _e('Custom content before results'); ?></label></th>
+										<td><textarea class="textarea" rows="3" cols="55" name="scf_options[scf_prepend]"><?php echo esc_textarea($scf_options['scf_prepend']); ?></textarea>
+										<div class="mm-item-caption"><?php _e('Add some text/markup to appear <em>before</em> the success message (optional).'); ?></div></td>
+									</tr>
+									<tr>
+										<th scope="row"><label class="description" for="scf_options[scf_append]"><?php _e('Custom content after results'); ?></label></th>
+										<td><textarea class="textarea" rows="3" cols="55" name="scf_options[scf_append]"><?php echo esc_textarea($scf_options['scf_append']); ?></textarea>
+										<div class="mm-item-caption"><?php _e('Add some text/markup to appear <em>after</em> the success message (optional).'); ?></div></td>
 									</tr>
 								</table>
 							</div>
