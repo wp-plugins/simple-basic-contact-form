@@ -8,9 +8,9 @@ Author URI: http://monzilla.biz/
 Contributors: specialk
 Donate link: http://digwp.com/book/
 Requires at least: 3.4
-Tested up to: 3.4.2
-Stable tag: 20121205
-Version: 20121205
+Tested up to: 3.5
+Stable tag: 20130104
+Version: 20130104
 License: GPL v2
 Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
 Tags: contact, form, contact form, email, mail, captcha
@@ -96,6 +96,14 @@ To upgrade the plugin, remove old version and replace with new version. Nothing 
 Screenshots available at the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/#screenshots).
 
 == Changelog ==
+
+**Version 20130104**
+
+* "Send email" (submit) button now available for translation
+* Added option to disable the Captcha (challenge question/response)
+* Added option to disable the automatic carbon copy
+* Added margin to submit button (now required in 3.5)
+* Fixed "Undefined index" warning
 
 **Version 20121205**
 
