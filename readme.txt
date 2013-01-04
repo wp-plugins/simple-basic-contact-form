@@ -38,6 +38,8 @@ Simple Basic Contact Form is a clean, secure, plug-n-play contact form for WordP
 * Provides template tag to display SBCF anywhere in your theme
 * Provides shortcode to display SBCF on any post or page
 * Displays customizable confirmation message to the sender
+* Optionally enable/disable captcha (challenge question/answer)
+* Option to enable/disable automatic sending of carbon copies to sender
 
 **Anti-spam &amp; Security**
 
