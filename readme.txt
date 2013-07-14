@@ -38,6 +38,8 @@ Simple Basic Contact Form is a clean, secure, plug-n-play contact form for WordP
 * Provides template tag to display SBCF anywhere in your theme
 * Provides shortcode to display SBCF on any post or page
 * Displays customizable confirmation message to the sender
+* Customizable placeholder text for input fields
+* Option to use either PHP's mail() or WP's wp_mail() (default)
 
 **Anti-spam &amp; Security**
 
