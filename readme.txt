@@ -6,11 +6,11 @@ Description: Delivers a clean, secure, plug-n-play contact form for WordPress.
 Author: Jeff Starr
 Author URI: http://monzilla.biz/
 Contributors: specialk
-Donate link: http://digwp.com/book/
+Donate link: http://m0n.co/donate
 Requires at least: 3.4
 Tested up to: 3.5
-Stable tag: 20130104
-Version: 20130104
+Version: 20130712
+Stable tag: trunk
 License: GPL v2
 Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
 Tags: contact, form, contact form, email, mail, captcha
@@ -38,8 +38,6 @@ Simple Basic Contact Form is a clean, secure, plug-n-play contact form for WordP
 * Provides template tag to display SBCF anywhere in your theme
 * Provides shortcode to display SBCF on any post or page
 * Displays customizable confirmation message to the sender
-* Optionally enable/disable captcha (challenge question/answer)
-* Option to enable/disable automatic sending of carbon copies to sender
 
 **Anti-spam &amp; Security**
 
@@ -99,6 +97,17 @@ Screenshots available at the [SBCF Homepage](http://perishablepress.com/simple-b
 
 == Changelog ==
 
+**Version 20130712**
+
+* Fix time offset setting
+* Defined UTC as default time
+* Improved localization support
+* Replaced some deprecated functions
+* Added options to customize placeholder text for form inputs
+* Added option to use either PHP's mail() or WP's wp_mail() (default)
+* Overview and Updates panels now toggled open by default
+* General code check n clean
+
 **Version 20130104**
 
 * "Send email" (submit) button now available for translation
@@ -132,6 +141,6 @@ To ask a question, visit the [SBCF Homepage](http://perishablepress.com/simple-b
 
 == Donations ==
 
-I created this plugin with love for the WP community. To show support, consider purchasing my new book, [.htaccess made easy](http://htaccessbook.com/), or my WordPress book, [Digging into WordPress](http://digwp.com/).
+I created this plugin with love for the WP community. To show support, consider purchasing one of my books: [The Tao of WordPress](http://wp-tao.com/), [Digging into WordPress](http://digwp.com/), or [.htaccess made easy](http://htaccessbook.com/).
 
 Links, tweets and likes also appreciated. Thanks! :)
