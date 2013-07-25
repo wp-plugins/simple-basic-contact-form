@@ -9,7 +9,7 @@ Contributors: specialk
 Donate link: http://m0n.co/donate
 Requires at least: 3.4
 Tested up to: 3.5
-Version: 20130712
+Version: 20130725
 Stable tag: trunk
 License: GPL v2
 Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
@@ -98,6 +98,11 @@ To upgrade the plugin, remove old version and replace with new version. Nothing 
 Screenshots available at the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/#screenshots).
 
 == Changelog ==
+
+**Version 20130725**
+
+* Tightened form security
+* Tightened plugin security
 
 **Version 20130712**
 

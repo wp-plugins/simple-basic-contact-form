@@ -5,7 +5,9 @@
 	Description: Simple basic plug-n-play contact form for WordPress.
 	Author: Jeff Starr
 	Author URI: http://monzilla.biz/
-	Version: 20130712
+	Donate link: http://m0n.co/donate
+	Version: 20130725
+	Stable tag: trunk
 	License: GPL v2
 	Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
 	Tags: contact, form, contact form, email, mail, captcha
@@ -13,11 +15,13 @@
 
 // NO EDITING REQUIRED - PLEASE SET PREFERENCES IN THE WP ADMIN!
 
+if (!function_exists('add_action')) die('&Delta;');
+
 $scf_plugin  = __('Simple Basic Contact Form', 'scf');
 $scf_options = get_option('scf_options');
 $scf_path    = plugin_basename(__FILE__); // 'simple-basic-contact-form/simple-basic-contact-form.php';
 $scf_homeurl = 'http://perishablepress.com/simple-basic-contact-form/';
-$scf_version = '20130712';
+$scf_version = '20130725';
 
 date_default_timezone_set('UTC');
 
@@ -36,6 +40,10 @@ function scf_require_wp_version() {
 }
 
 // set some strings
+$value_name = '';
+$value_email = '';
+$value_response = '';
+$value_message  = '';
 if (isset($_POST['scf_name']))     $value_name     = htmlentities($_POST['scf_name']);
 if (isset($_POST['scf_email']))    $value_email    = htmlentities($_POST['scf_email']);
 if (isset($_POST['scf_response'])) $value_response = htmlentities($_POST['scf_response']);
@@ -101,10 +109,10 @@ function scf_input_filter() {
 	if(!(isset($_POST['scf_key']))) { 
 		return false;
 	}
-	$_POST['scf_name']     = stripslashes(trim($_POST['scf_name']));
-	$_POST['scf_email']    = stripslashes(trim($_POST['scf_email']));
-	$_POST['scf_message']  = stripslashes(trim($_POST['scf_message']));
-	$_POST['scf_response'] = stripslashes(trim($_POST['scf_response']));
+	$_POST['scf_name']     = htmlentities(stripslashes(trim($_POST['scf_name'])));
+	$_POST['scf_email']    = htmlentities(stripslashes(trim($_POST['scf_email'])));
+	$_POST['scf_message']  = htmlentities(stripslashes(trim($_POST['scf_message'])));
+	$_POST['scf_response'] = htmlentities(stripslashes(trim($_POST['scf_response'])));
 
 	global $scf_options, $scf_strings;
 	$pass  = true;
@@ -134,9 +142,9 @@ function scf_input_filter() {
 	if(empty($_POST['scf_message'])) {
 		$pass = FALSE; 
 		$fail = 'empty';
-		$scf_strings['message'] = '<textarea class="scf_error" name="scf_message" id="scf_message" cols="33" rows="7" ' . $scf_options['scf_style'] . ' placeholder="' . $scf_options['scf_input_message'] . '">'. $_POST['scf_message'] .'</textarea>';
+		$scf_strings['message'] = '<textarea class="scf_error" name="scf_message" id="scf_message" cols="33" rows="7" ' . $scf_options['scf_style'] . ' placeholder="' . $scf_options['scf_input_message'] . '">'. htmlentities($_POST['scf_message']) .'</textarea>';
 	}
-	if(scf_malicious_input($_POST['scf_name']) || scf_malicious_input($_POST['scf_email'])) {
+	if(scf_malicious_input(htmlentities($_POST['scf_name'])) || scf_malicious_input(htmlentities($_POST['scf_email']))) {
 		$pass = false; 
 		$fail = 'malicious';
 	}
@@ -186,13 +194,13 @@ function scf_process_contact_form($content='') {
 	$success   = stripslashes($scf_options['scf_success']);
 	$carbon    = stripslashes($scf_options['scf_carbon']);
 
-	$name      = $_POST['scf_name'];
-	$email     = $_POST['scf_email'];
+	$name      = htmlentities($_POST['scf_name']);
+	$email     = htmlentities($_POST['scf_email']);
 
-	$senderip  = scf_get_ip_address();
+	$senderip  = htmlentities(scf_get_ip_address());
 	$offset    = $scf_options['scf_offset'];
-	$agent     = $_SERVER['HTTP_USER_AGENT'];
-	$form      = getenv("HTTP_REFERER");
+	$agent     = htmlentities($_SERVER['HTTP_USER_AGENT']);
+	$form      = htmlentities(getenv("HTTP_REFERER"));
 	$host      = gethostbyaddr($_SERVER['REMOTE_ADDR']);
 	$date      = date("l, F jS, Y @ g:i a", time() + $offset * 60 * 60);
 
@@ -207,7 +215,7 @@ function scf_process_contact_form($content='') {
 	$headers  .= "From: $name <$email>\n";
 	$headers  .= "Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"";
 
-	$message   = $_POST['scf_message'];
+	$message   = htmlentities($_POST['scf_message']);
 	$fullmsg   = ("Hello $recipname,
 
 You are being contacted via $recipsite:
