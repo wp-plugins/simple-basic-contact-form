@@ -8,8 +8,8 @@ Author URI: http://monzilla.biz/
 Contributors: specialk
 Donate link: http://m0n.co/donate
 Requires at least: 3.4
-Tested up to: 3.5
-Version: 20130725
+Tested up to: 3.7
+Version: 20131106
 Stable tag: trunk
 License: GPL v2
 Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
@@ -40,6 +40,7 @@ Simple Basic Contact Form is a clean, secure, plug-n-play contact form for WordP
 * Displays customizable confirmation message to the sender
 * Customizable placeholder text for input fields
 * Option to use either PHP's mail() or WP's wp_mail() (default)
+* Option to display message only in the success message
 
 **Anti-spam &amp; Security**
 
@@ -98,6 +99,22 @@ To upgrade the plugin, remove old version and replace with new version. Nothing 
 Screenshots available at the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/#screenshots).
 
 == Changelog ==
+
+**20131106**
+
+* Added option to hide extra infos displayed in the success message
+* Fixed logic for using `mail()` vs `wp_mail()`
+* Removed "&Delta;" from `die()` for better security
+* Added i18n/localization support
+* Added "rate this plugin" links
+* Added uninstall.php file
+* Added parameters to `htmlentities` (fixes weird characters issue)
+* Replaced `get_permalink()` with empty value in the form
+* Changed `$date` to use WordPress settings and format
+* Added German translation; thanks to [Benedikt Quirmbach](http://www.LivingDocs.de)
+* Fixed character encoding via `filter_var` and `html_entity_decode` in `scf_process_contact_form()`
+* Tested on latest version of WordPress (3.7)
+* General code cleanup and maintenance
 
 **Version 20130725**
 

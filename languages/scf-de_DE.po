@@ -1,0 +1,422 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple Basic Contact Form v20130712\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2013-07-17 15:51:23+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: no"
+
+#@ scf
+msgid "(SBCF) is a simple basic contact form for your WordPress-powered website. Automatically sends a carbon copy to the sender."
+msgstr "(SBCF) ist ein einfaches Kontakt-Formular für WordPress-betriebene Websites. Verschickt automatisch Kopien an den Sender."
+
+#@ scf
+msgid "<strong>Tip:</strong> leave this option unchecked to remember your settings. Or, to go ahead and restore all default options, check the box, save your settings, and then deactivate/reactivate the plugin."
+msgstr "<strong>Tip:</strong>Machen Sie hier kein Häkchen, wenn Ihre Einstellungen erhalten bleiben sollen."
+
+#@ scf
+msgid ""
+"Add some CSS to style the contact form. Note: do not include the <code>&lt;style&gt;</code> tags.<br />\n"
+"\t\t\t\t\t\t\t\t\t\t\tNote: visit <a href=\"http://m0n.co/i\" target=\"_blank\">m0n.co/i</a> for complete list of CSS hooks."
+msgstr ""
+"Fügen Sie CSS-Stile für das Formular ein. Beachten Sie: Benutzen Sie nicht <code>&lt;style&gt;</code> tags.<br />\n"
+"\\\t\\\t\\\t\\\t\\\t\\\t\\\t\\\t\\\t\\\t\\\tBeachten Sie: besuchen Sie <a href=\"http://m0n.co/i\" target=\"_blank\">m0n.co/i</a> für eine komplette Liste der CSS-Hooks."
+
+#@ scf
+msgid "Add some text/markup to appear <em>after</em> the submitted contact form (optional)."
+msgstr "Fügen Sie hier Text oder html ein, der <em>nach</em> dem Formular erscheinen soll (optional)."
+
+#@ scf
+msgid "Add some text/markup to appear <em>after</em> the success message (optional)."
+msgstr "Fügen Sie hier Text oder html ein, der <em>nach</em> dem Ergebnis erscheinen soll (optional)."
+
+#@ scf
+msgid "Add some text/markup to appear <em>before</em> the submitted contact form (optional)."
+msgstr "Fügen Sie hier Text oder html ein, der <em>vor</em> dem Formular erscheinen soll (optional)."
+
+#@ scf
+msgid "Add some text/markup to appear <em>before</em> the success message (optional)."
+msgstr "Fügen Sie hier Text oder html ein, der <em>vor</em> dem Ergebnis stehe soll (optional)."
+
+#@ scf
+msgid "Appearance"
+msgstr "Aussehen"
+
+#@ scf
+msgid "Are you sure you want to restore all default options? (this action cannot be undone)"
+msgstr "Sind Sie sicher, dass Sie zurück zu den Standard-Einstellunge möchten? (Diese Aktion kann nicht zurückgängig gemacht werden!)"
+
+#@ scf
+msgid "Caption for Email Field"
+msgstr "Feldnamen für das EMail-Feld"
+
+#@ scf
+msgid "Caption for Message Field"
+msgstr "Feldnamen für das Nachricht-Feld"
+
+#@ scf
+msgid "Caption for Name Field"
+msgstr "Feldnamen für Namensfest"
+
+#@ scf
+msgid "Case-sensitive?"
+msgstr "Groß-/Kleinschreibung beachten?"
+
+#@ scf
+msgid "Challenge Question"
+msgstr "Frage"
+
+#@ scf
+msgid "Challenge Response"
+msgstr "Antwort"
+
+#@ scf
+msgid "Check this box if you want the challenge response to be case-sensitive."
+msgstr "Machen Sie hier ein Häkchen, wenn bei der Antwort die Schreibweise geprüft werden soll."
+
+#@ scf
+msgid "Check this box if you want to enable the automatic sending of carbon-copies to the sender."
+msgstr "Machen Sie hier ein Häkchen, wenn an den Sender eine Kopie der Mail geschickt werden soll."
+
+#@ scf
+msgid "Check this box if you want to enable the captcha (challenge question/answer)."
+msgstr "Setze Sie einen Haken in dieser Box um Captcha zu aktivieren (Frage und Antwort)-"
+
+#@ scf
+msgid "Check this box if you want to use PHP&rsquo;s mail() function instead of WP&rsquo;s wp_mail() (default)."
+msgstr "Machen Sie hier ein Häkchen, wenn PHP&rsquo;s mail()-Funktion anstatt WP&rsquo;s wp_mail() (Standard) benutzt werden soll."
+
+#@ scf
+msgid "Configure the contact form.."
+msgstr "Kontakt-Formular konfigurieren."
+
+#@ scf
+msgid "Current time:"
+msgstr "Aktuelle Zeit:"
+
+#@ scf
+msgid "Custom CSS styles"
+msgstr "Eigene CSS-Stile"
+
+#@ scf
+msgid "Custom content after results"
+msgstr "Eigener Inhalt nach dem Ergebnis"
+
+#@ scf
+msgid "Custom content after the form"
+msgstr "Eigener Inhalt nach dem Formular"
+
+#@ scf
+msgid "Custom content before results"
+msgstr "Eigener Inhalt vor dem Ergebnis"
+
+#@ scf
+msgid "Custom content before the form"
+msgstr "Eigener Inhalt vor dem Formular"
+
+#@ scf
+msgid "Date"
+msgstr "Datum"
+
+#@ scf
+msgid "Default Subject"
+msgstr "Standard-Betreff"
+
+#@ scf
+msgid "Enable Captcha"
+msgstr "Captcha aktivieren"
+
+#@ scf
+msgid "Enable Carbon Copies?"
+msgstr "Sollen Kopien versendet werden?"
+
+#@ scf
+msgid "Error Fields"
+msgstr "Fehlerfelder"
+
+#@ scf
+msgid "Error Message"
+msgstr "Fehlermeldung"
+
+#@ scf
+msgid "Field Captions &amp; Placeholders"
+msgstr "Feldnamen &amp; Platzhalter"
+
+#@ scf
+msgid "For more information check the"
+msgstr "Für mehr Informationen besuchen Sie"
+
+#@ scf
+msgid "For the shortcode and template tag, visit"
+msgstr "Für den Shortcode und das Template-Tag besuchen Sie"
+
+#@ scf
+msgid "Form of Address"
+msgstr "Anrede"
+
+#@ scf
+msgid "From where should the contact messages indicate they were sent?"
+msgstr "Wie lautet der Absender der Mails aus dem Formular?"
+
+#@ scf
+msgid "General options"
+msgstr "Allgemeine Einstellungen"
+
+#@ scf
+msgid "Here you may specify the default CSS for error fields, or add other attributes."
+msgstr "Hier können Sie den CSS-Stil für die Fehlerfelder angeben oder andere Attribute hinzufügen."
+
+#@ scf
+msgid "How would you like to be addressed in messages sent from the contact form?"
+msgstr "Wie möchten Sie in Mails aus dem Formular angesprochen werden?"
+
+#@ scf
+msgid "If the user skips a required field, this message will be displayed."
+msgstr "Wenn ein Besucher ein erforderliches Feld leer lässt, wird diese Nachricht angezeigt."
+
+#@ scf
+msgid "Incorrect Response"
+msgstr "Falsche Antwort"
+
+#@ scf
+msgid "Link to go back to the form"
+msgstr "Link zurück zum Formular"
+
+#@ scf
+msgid "Mail"
+msgstr "Mail"
+
+#@ scf
+msgid "Mail Function"
+msgstr "Mail-Funktion"
+
+#@ scf
+msgid "Mailtext"
+msgstr "Mailtext"
+
+#@ scf
+msgid "Note: use single quotes for attributes. Example: <code>&lt;span class='error'&gt;</code>"
+msgstr "Beachten Sie: benutzen Sie einfache Anführungszeichen für Attribute. z.B.: <code>&lt;span class='error'&gt;</code>"
+
+#@ scf
+msgid "Options"
+msgstr "Optionen"
+
+#@ scf
+msgid "Options panel"
+msgstr "Optionen"
+
+#@ scf
+msgid "Overview"
+msgstr "Überblick"
+
+#@ scf
+msgid "Placeholder for Captcha Field"
+msgstr "Platzhalter für das Captcha-Feld"
+
+#@ scf
+msgid "Placeholder for Email Field"
+msgstr "Platzhalter für das Emailfeld"
+
+#@ scf
+msgid "Placeholder for Message Field"
+msgstr "Platzhalter für das Nachricht-Feld"
+
+#@ scf
+msgid "Placeholder for Name Field"
+msgstr "Platzhalter für das Namensfest"
+
+#@ scf
+msgid "Please return to the"
+msgstr "Bitte zurück nach"
+
+#@ scf
+msgid "Please specify any time offset here. If no offset, enter \"0\" (zero)."
+msgstr "Bitte geben Sie hier die Zeitverschiebung an. Bei keiner Zeitverschiebung bitte \"0\" (null) angeben."
+
+#@ scf
+msgid "Restore Default Options"
+msgstr "Zurück zu den Default-Einstellungen"
+
+#@ scf
+msgid "Restore default options upon plugin deactivation/reactivation."
+msgstr "Zurück zu den Werkseinstellungen, beim deaktivieren/reaktivieren des PlugIns."
+
+#@ scf
+msgid "SBCF Homepage"
+msgstr "SBCF Homepage"
+
+#@ scf
+msgid "Save Settings"
+msgstr "Einstellungen speichern"
+
+#@ scf
+msgid "Send email"
+msgstr "Mail senden"
+
+#@ scf
+msgid "Settings"
+msgstr "Einstellungen"
+
+#@ scf
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#@ scf
+msgid "Shortcodes &amp; Template Tags"
+msgstr "Shortcodes &amp; Template-Tags"
+
+#@ scf
+msgid "Simple Basic Contact Form"
+msgstr "Simple Basic Contact Form"
+
+#@ scf
+msgid "Simply choose your options, then add the shortcode to any post or page to display the contact form. For a contact form with more options try "
+msgstr "Wählen Sie einfach Ihre Einstellungen, dann fügen Sie den Shortcode in jeden Blockeintrag oder jede Seite ein, um das Kontakt-Formular anzuzeigen. Für ein Formular mit mehr Optionen versuchen Sie "
+
+#@ scf
+msgid "Success &amp; error messages"
+msgstr "Erfolgs- &amp; Fehlermeldungen"
+
+#@ scf
+msgid "Success Message"
+msgstr "Erfolgsnachricht"
+
+#@ scf
+msgid "Template tag"
+msgstr "Template-Tag"
+
+#@ scf
+msgid "This is the caption that corresponds with the Email field."
+msgstr "Geben Sie hier den Namen für das EMail-Feld an."
+
+#@ scf
+msgid "This is the caption that corresponds with the Message field."
+msgstr "Geben Sie hier den Namen für das Nachricht-Feld an."
+
+#@ scf
+msgid "This is the caption that corresponds with the Name field."
+msgstr "Geben Sie den Namen für das Namensfeld an."
+
+#@ scf
+msgid "This is the text appearing as the input placeholder for the captcha input."
+msgstr "Dieser Text erschein als Platzhalter für das Captcha-Feld."
+
+#@ scf
+msgid "This is the text appearing as the input placeholder for the email input."
+msgstr "Dieser Text erscheint als Platzhalter für das Emailfeld."
+
+#@ scf
+msgid "This is the text appearing as the input placeholder for the message input."
+msgstr "Dieser Text erscheint als Platzhalter für das Nachricht-Feld."
+
+#@ scf
+msgid "This is the text appearing as the input placeholder for the name input."
+msgstr "Dieser Text erscheint als Platzhalter für das Namensfest"
+
+#@ scf
+msgid "Time Offset"
+msgstr "Zeitverschiebung"
+
+#@ scf
+msgid "To configure the contact form, visit the"
+msgstr "Um das Kontakt-Formular zu konfigurieren, besuchen Sie"
+
+#@ scf
+msgid "To restore default settings, visit"
+msgstr "Zum Zurücksetzen zu den Default-Einstellungen, besuchen Sie"
+
+#@ scf
+msgid "Toggle all panels"
+msgstr "Alle Panels umschalten"
+
+#@ scf
+msgid "Updates &amp; Info"
+msgstr "Updates &amp; Info"
+
+#@ scf
+msgid "Use this shortcode to display the contact form on a post or page:"
+msgstr "Benutzen Sie diesen Shortcode, um das Formular in einem Blockbeitrag oder einer Seite erscheine zu lassen:"
+
+#@ scf
+msgid "Use this template tag to display the form anywhere in your theme template:"
+msgstr "Benutzen Sie diesen Template-Tag, um das Formular in Ihrem Template erscheinen zu lassen:"
+
+#@ scf
+msgid "What is the <em>only</em> correct answer to the challenge question?"
+msgstr "Wie lautet die <em>einzig-richtige</em> Antwort?"
+
+#@ scf
+msgid "What question should be answered correctly before the message is sent?"
+msgstr "Welche Frage soll beantwortet werden, bevor die Mail versendet wird?"
+
+#@ scf
+msgid "What should be the default subject line for the contact messages?"
+msgstr "Wie soll die Betreffzeile der Mail lauten?"
+
+#@ scf
+msgid "What should be the form of address in the send mail?"
+msgstr "Wie soll die Anrede in der Mail lauten?"
+
+#@ scf
+msgid "What should be the text bevor technical data in the mail?"
+msgstr "Wie soll der Text vor den technischen Daten in der Mail lauten?"
+
+#@ scf
+msgid "What should be the text of the send mail bevor the message data?"
+msgstr "Wie soll der Mailtext lauten, der vor den Maildaten angezeigt wird?"
+
+#@ scf
+msgid "When the challenge question is answered incorrectly, this message will be displayed."
+msgstr "Wenn die Captcha-Frage falsch beantwortet wurde, wird diese Nachricht angezeigt."
+
+#@ scf
+msgid "When the form is sucessfully submitted, this message will be displayed to the sender."
+msgstr "Wenn das Formular erfolgreich verarbeitet wurde, wird dem Besucher diese Nachricht gezeigt."
+
+#@ scf
+msgid "Where would you like to receive messages sent from the contact form?"
+msgstr "An welche Adresse sollen die Mails aus dem Formular geschickt werden?"
+
+#@ scf
+msgid "WordPress Admin area"
+msgstr "WordPress-Admin-Bereich"
+
+#@ scf
+msgid "Your Email"
+msgstr "Ihre Email-Adresse"
+
+#@ scf
+msgid "Your Name"
+msgstr "Ihr Name"
+
+#@ scf
+msgid "Your Site"
+msgstr "Ihre WebSite"
+
+#@ scf
+msgid "and"
+msgstr "und"
+
+#@ scf
+msgid "requires WordPress 3.4 or higher, and has been deactivated!"
+msgstr "benötigt WordPress 3.4 oder höher, und wurde deaktiviert!"
+
+#@ scf
+msgid "to upgrade WordPress and try again."
+msgstr "Wordpress upgraden und noch einmal probieren."
+
