@@ -6,7 +6,7 @@
 	Author: Jeff Starr
 	Author URI: http://monzilla.biz/
 	Donate link: http://m0n.co/donate
-	Version: 20131106
+	Version: 20131107
 	Stable tag: trunk
 	License: GPL v2
 	Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
@@ -26,7 +26,7 @@ $scf_plugin  = __('Simple Basic Contact Form', 'scf');
 $scf_options = get_option('scf_options');
 $scf_path    = plugin_basename(__FILE__); // 'simple-basic-contact-form/simple-basic-contact-form.php';
 $scf_homeurl = 'http://perishablepress.com/simple-basic-contact-form/';
-$scf_version = '20131106';
+$scf_version = '20131107';
 
 date_default_timezone_set('UTC');
 
@@ -345,14 +345,14 @@ function scf_plugin_action_links($links, $file) {
 }
 
 // rate plugin link
-function add_plugin_links($links, $file) {
+function add_scf_links($links, $file) {
 	if ($file == plugin_basename(__FILE__)) {
 		$rate_url = 'http://wordpress.org/support/view/plugin-reviews/' . basename(dirname(__FILE__)) . '?rate=5#postform';
-		$links[] = '<a href="' . $rate_url . '" target="_blank" title="Click here to rate and review this plugin on WordPress.org">Rate This Plugin</a>';
+		$links[] = '<a href="' . $rate_url . '" target="_blank" title="Click here to rate and review this plugin on WordPress.org">Rate this plugin</a>';
 	}
 	return $links;
 }
-add_filter('plugin_row_meta', 'add_plugin_links', 10, 2);
+add_filter('plugin_row_meta', 'add_scf_links', 10, 2);
 
 // delete plugin settings
 function scf_delete_plugin_options() {
@@ -556,7 +556,11 @@ function scf_render_form() {
 									<li><?php _e('To restore default settings, visit', 'scf'); ?> <a id="mm-restore-settings-link" href="#mm-restore-settings"><?php _e('Restore Default Options', 'scf'); ?></a>.</li>
 									<li><?php _e('For more information check the', 'scf'); ?> <a href="<?php echo plugins_url(); ?>/simple-basic-contact-form/readme.txt">readme.txt</a> 
 									<?php _e('and', 'scf'); ?> <a href="<?php echo $scf_homeurl; ?>"><?php _e('SBCF Homepage', 'scf'); ?></a>.</li>
-									<li>If you like this plugin, please <a href="http://wordpress.org/support/view/plugin-reviews/<?php echo basename(dirname(__FILE__)); ?>?rate=5#postform" target="_blank" title="Click Here to Rate and Review this Plugin on WordPress.org">rate it at the Plugin Directory&nbsp;&raquo;</a></li>
+									<li><?php _e('If you like this plugin, please', 'sbs'); ?> 
+										<a href="http://wordpress.org/support/view/plugin-reviews/<?php echo basename(dirname(__FILE__)); ?>?rate=5#postform" title="<?php _e('Click here to rate and review this plugin on WordPress.org', 'sbs'); ?>" target="_blank">
+											<?php _e('rate it at the Plugin Directory', 'sbs'); ?>&nbsp;&raquo;
+										</a>
+									</li>
 								</ul>
 							</div>
 						</div>
