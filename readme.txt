@@ -8,8 +8,8 @@ Author URI: http://monzilla.biz/
 Contributors: specialk
 Donate link: http://m0n.co/donate
 Requires at least: 3.4
-Tested up to: 3.7
-Version: 20131107
+Tested up to: 3.8
+Version: 20140123
 Stable tag: trunk
 License: GPL v2
 Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
@@ -97,6 +97,13 @@ To upgrade the plugin, remove old version and replace with new version. Nothing 
 Screenshots available at the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/#screenshots).
 
 == Changelog ==
+
+**20140123**
+
+* Tested with latest WordPress (3.8)
+* Added trailing slash to load_plugin_textdomain()
+* Fixed 3 incorrect _e() tags in core file
+* Localized default options
 
 **20131107**
 

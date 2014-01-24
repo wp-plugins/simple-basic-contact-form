@@ -6,7 +6,7 @@
 	Author: Jeff Starr
 	Author URI: http://monzilla.biz/
 	Donate link: http://m0n.co/donate
-	Version: 20131107
+	Version: 20140123
 	Stable tag: trunk
 	License: GPL v2
 	Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
@@ -18,7 +18,7 @@
 if (!function_exists('add_action')) die();
 
 function scf_i18n_init() {
-	load_plugin_textdomain('scf', false, dirname(plugin_basename(__FILE__)).'/languages');
+	load_plugin_textdomain('scf', false, dirname(plugin_basename(__FILE__)).'/languages/');
 }
 add_action('plugins_loaded', 'scf_i18n_init');
 
@@ -26,7 +26,7 @@ $scf_plugin  = __('Simple Basic Contact Form', 'scf');
 $scf_options = get_option('scf_options');
 $scf_path    = plugin_basename(__FILE__); // 'simple-basic-contact-form/simple-basic-contact-form.php';
 $scf_homeurl = 'http://perishablepress.com/simple-basic-contact-form/';
-$scf_version = '20131107';
+$scf_version = '20140123';
 
 date_default_timezone_set('UTC');
 
@@ -376,34 +376,34 @@ function scf_add_defaults() {
 	$tmp = get_option('scf_options');
 	if(($tmp['default_options'] == '1') || (!is_array($tmp))) {
 		$arr = array(
-			'default_options' => 0,
-			'scf_name' => $admin_name,
-			'scf_website' => $site_title,
-			'scf_email' => $admin_mail,
-			'scf_offset' => 'For example, +1 or -1',
-			'scf_subject' => 'Message sent from your contact form.',
-			'scf_question' => '1 + 1 =',
-			'scf_response' => '2',
-			'scf_casing' => 0,
-			'scf_nametext' => 'Name (Required)',
-			'scf_mailtext' => 'Email (Required)',
-			'scf_messtext' => 'Message (Required)',
-			'scf_success' => '<p class=\'scf_success\'><strong>Success!</strong> Your message has been sent.</p>',
-			'scf_error' => '<p class=\'scf_error\'>Please complete the required fields.</p>',
-			'scf_spam' => '<p class=\'scf_spam\'>Incorrect response for challenge question. Please try again.</p>',
-			'scf_style' => 'style=\'border: 1px solid #CC0000;\'',
-			'scf_prepend' => '',
-			'scf_append' => '',
-			'scf_css' => '#simple-contact-form fieldset { width: 100%; overflow: hidden; margin: 5px 0; border: 0; } #simple-contact-form fieldset input { float: left; width: 60%; } #simple-contact-form textarea { float: left; clear: both; width: 95%; } #simple-contact-form label { float: left; clear: both; width: 30%; margin-top: 3px; line-height: 1.8; font-size: 90%; }',
-			'scf_preform' => '',
-			'scf_appform' => '<div style=\'clear:both;\'>&nbsp;</div>',
-			'scf_captcha' => 1,
-			'scf_carbon' => 1,
-			'scf_input_name' => 'Your Name',
-			'scf_input_email' => 'Your Email',
-			'scf_input_captcha' => 'Correct Response',
-			'scf_input_message' => 'Your Message',
-			'scf_mail_function' => 1,
+			'default_options'     => 0,
+			'scf_name'            => $admin_name,
+			'scf_website'         => $site_title,
+			'scf_email'           => $admin_mail,
+			'scf_offset'          => __('For example, +1 or -1', 'scf'),
+			'scf_subject'         => __('Message sent from your contact form.', 'scf'),
+			'scf_question'        => __('1 + 1 =', 'scf'),
+			'scf_response'        => __('2', 'scf'),
+			'scf_casing'          => 0,
+			'scf_nametext'        => __('Name (Required)', 'scf'),
+			'scf_mailtext'        => __('Email (Required)', 'scf'),
+			'scf_messtext'        => __('Message (Required)', 'scf'),
+			'scf_success'         => '<p class=\'scf_success\'><strong>' . __('Success!', 'scf') . '</strong> ' . __('Your message has been sent.', 'scf') . '</p>',
+			'scf_error'           => '<p class=\'scf_error\'>' . __('Please complete the required fields.', 'scf') . '</p>',
+			'scf_spam'            => '<p class=\'scf_spam\'>' . __('Incorrect response for challenge question. Please try again.', 'scf') . '</p>',
+			'scf_style'           => 'style=\'border: 1px solid #CC0000;\'',
+			'scf_prepend'         => '',
+			'scf_append'          => '',
+			'scf_css'             => '#simple-contact-form fieldset { width: 100%; overflow: hidden; margin: 5px 0; border: 0; } #simple-contact-form fieldset input { float: left; width: 60%; } #simple-contact-form textarea { float: left; clear: both; width: 95%; } #simple-contact-form label { float: left; clear: both; width: 30%; margin-top: 3px; line-height: 1.8; font-size: 90%; }',
+			'scf_preform'         => '',
+			'scf_appform'         => '<div style=\'clear:both;\'>&nbsp;</div>',
+			'scf_captcha'         => 1,
+			'scf_carbon'          => 1,
+			'scf_input_name'      => __('Your Name', 'scf'),
+			'scf_input_email'     => __('Your Email', 'scf'),
+			'scf_input_captcha'   => __('Correct Response', 'scf'),
+			'scf_input_message'   => __('Your Message', 'scf'),
+			'scf_mail_function'   => 1,
 			'scf_success_details' => 1,
 		);
 		update_option('scf_options', $arr);
@@ -556,9 +556,9 @@ function scf_render_form() {
 									<li><?php _e('To restore default settings, visit', 'scf'); ?> <a id="mm-restore-settings-link" href="#mm-restore-settings"><?php _e('Restore Default Options', 'scf'); ?></a>.</li>
 									<li><?php _e('For more information check the', 'scf'); ?> <a href="<?php echo plugins_url(); ?>/simple-basic-contact-form/readme.txt">readme.txt</a> 
 									<?php _e('and', 'scf'); ?> <a href="<?php echo $scf_homeurl; ?>"><?php _e('SBCF Homepage', 'scf'); ?></a>.</li>
-									<li><?php _e('If you like this plugin, please', 'sbs'); ?> 
-										<a href="http://wordpress.org/support/view/plugin-reviews/<?php echo basename(dirname(__FILE__)); ?>?rate=5#postform" title="<?php _e('Click here to rate and review this plugin on WordPress.org', 'sbs'); ?>" target="_blank">
-											<?php _e('rate it at the Plugin Directory', 'sbs'); ?>&nbsp;&raquo;
+									<li><?php _e('If you like this plugin, please', 'scf'); ?> 
+										<a href="http://wordpress.org/support/view/plugin-reviews/<?php echo basename(dirname(__FILE__)); ?>?rate=5#postform" title="<?php _e('Click here to rate and review this plugin on WordPress.org', 'scf'); ?>" target="_blank">
+											<?php _e('rate it at the Plugin Directory', 'scf'); ?>&nbsp;&raquo;
 										</a>
 									</li>
 								</ul>
