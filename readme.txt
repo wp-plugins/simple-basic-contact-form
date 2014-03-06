@@ -9,7 +9,7 @@ Contributors: specialk
 Donate link: http://m0n.co/donate
 Requires at least: 3.4
 Tested up to: 3.8
-Version: 20140123
+Version: 20140305
 Stable tag: trunk
 License: GPL v2
 Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
@@ -97,6 +97,12 @@ To upgrade the plugin, remove old version and replace with new version. Nothing 
 Screenshots available at the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/#screenshots).
 
 == Changelog ==
+
+**20140305**
+
+* Added default templates for translation/localization
+* Added language support for Spanish
+* Changed default option for Time Offset
 
 **20140123**
 

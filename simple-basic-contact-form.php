@@ -6,14 +6,12 @@
 	Author: Jeff Starr
 	Author URI: http://monzilla.biz/
 	Donate link: http://m0n.co/donate
-	Version: 20140123
+	Version: 20140305
 	Stable tag: trunk
 	License: GPL v2
 	Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
 	Tags: contact, form, contact form, email, mail, captcha
 */
-
-// NO EDITING REQUIRED - PLEASE SET PREFERENCES IN THE WP ADMIN!
 
 if (!function_exists('add_action')) die();
 
@@ -26,7 +24,7 @@ $scf_plugin  = __('Simple Basic Contact Form', 'scf');
 $scf_options = get_option('scf_options');
 $scf_path    = plugin_basename(__FILE__); // 'simple-basic-contact-form/simple-basic-contact-form.php';
 $scf_homeurl = 'http://perishablepress.com/simple-basic-contact-form/';
-$scf_version = '20140123';
+$scf_version = '20140305';
 
 date_default_timezone_set('UTC');
 
@@ -380,7 +378,7 @@ function scf_add_defaults() {
 			'scf_name'            => $admin_name,
 			'scf_website'         => $site_title,
 			'scf_email'           => $admin_mail,
-			'scf_offset'          => __('For example, +1 or -1', 'scf'),
+			'scf_offset'          => '0',
 			'scf_subject'         => __('Message sent from your contact form.', 'scf'),
 			'scf_question'        => __('1 + 1 =', 'scf'),
 			'scf_response'        => __('2', 'scf'),
@@ -617,7 +615,7 @@ function scf_render_form() {
 										<td>
 											<input type="text" size="50" maxlength="200" name="scf_options[scf_offset]" value="<?php echo $scf_options['scf_offset']; ?>" />
 											<div class="mm-item-caption">
-												<?php _e('Please specify any time offset here. If no offset, enter "0" (zero).', 'scf'); ?><br />
+												<?php _e('Please specify any time offset here. For example, "+7" or "-7". If no offset or unsure, enter "0" (zero, default).', 'scf'); ?><br />
 												<?php _e('Current time:', 'scf'); ?> <?php echo date("l, F jS, Y @ g:i a", time() + $scf_options['scf_offset']*60*60); ?>
 											</div>
 										</td>
