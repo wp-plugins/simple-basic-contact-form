@@ -7,9 +7,9 @@ Author: Jeff Starr
 Author URI: http://monzilla.biz/
 Contributors: specialk
 Donate link: http://m0n.co/donate
-Requires at least: 3.4
-Tested up to: 3.8
-Version: 20140305
+Requires at least: 3.7
+Tested up to: 4.0
+Version: 20140925
 Stable tag: trunk
 License: GPL v2
 Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
@@ -97,6 +97,21 @@ To upgrade the plugin, remove old version and replace with new version. Nothing 
 Screenshots available at the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/#screenshots).
 
 == Changelog ==
+
+**20140925**
+
+* Tested on latest version of WordPress (4.0)
+* Increased min-required version to WP 3.7
+* Added conditional check to min-version function
+* Reorganized the plugin settings page
+* Added .scf class to both form div and success div
+* Added scf_filter_contact_form filter to form output
+* Fixed case-sensitivity bug for challenge question
+* Replaced 'UTF-8' with get_option('blog_charset') in scf_process_contact_form()
+* Replaced stripslashes(), htmlentities(), filter_var() with sanitize_text_field()
+* Fixed weird character issue and backslash issue (related)
+* Applied i18n to email content and success message
+* Generated new mo/po translation files
 
 **20140305**
 
