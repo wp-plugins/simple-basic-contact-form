@@ -2,26 +2,31 @@
 /*
 	Plugin Name: Simple Basic Contact Form
 	Plugin URI: http://perishablepress.com/simple-basic-contact-form/
-	Description: Simple basic plug-n-play contact form for WordPress.
+	Description: Delivers a clean, secure, plug-n-play contact form for WordPress.
+	Tags: contact, form, contact form, email, mail, captcha
 	Author: Jeff Starr
 	Author URI: http://monzilla.biz/
 	Donate link: http://m0n.co/donate
-	Version: 20140925
+	Contributors: specialk
+	Requires at least: 3.8
+	Tested up to: 4.1
 	Stable tag: trunk
-	License: GPL v2
-	Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
-	Tags: contact, form, contact form, email, mail, captcha
+	Version: 20150317
+	Text Domain: scf
+	Domain Path: /languages/
+	License: GPL v2 or later
 */
 
 if (!function_exists('add_action')) die();
 
+$scf_wp_vers = '3.8';
+$scf_version = '20150317';
 $scf_plugin  = __('Simple Basic Contact Form', 'scf');
 $scf_options = get_option('scf_options');
 $scf_path    = plugin_basename(__FILE__); // 'simple-basic-contact-form/simple-basic-contact-form.php';
 $scf_homeurl = 'http://perishablepress.com/simple-basic-contact-form/';
-$scf_version = '20140925';
 
-date_default_timezone_set('UTC');
+// date_default_timezone_set('UTC');
 
 // i18n
 function scf_i18n_init() {
@@ -31,12 +36,12 @@ add_action('plugins_loaded', 'scf_i18n_init');
 
 // require minimum version of WordPress
 function scf_require_wp_version() {
-	global $wp_version, $scf_path, $scf_plugin;
-	if (version_compare($wp_version, '3.7', '<')) {
+	global $wp_version, $scf_path, $scf_plugin, $scf_wp_vers;
+	if (version_compare($wp_version, $scf_wp_vers, '<')) {
 		if (is_plugin_active($scf_path)) {
 			deactivate_plugins($scf_path);
-			$msg =  '<strong>' . $scf_plugin . '</strong> ' . __('requires WordPress 3.7 or higher, and has been deactivated!', 'scf') . '<br />';
-			$msg .= __('Please return to the', 'scf') . ' <a href="' . admin_url() . '">' . __('WordPress Admin area', 'scf') . '</a> ' . __('to upgrade WordPress and try again.', 'scf');
+			$msg  = '<strong>'. $scf_plugin .'</strong> '. __('requires WordPress ', 'scf') . $scf_wp_vers . __(' or higher, and has been deactivated!', 'scf') .'<br />';
+			$msg .= __('Please return to the', 'scf') .' <a href="'. admin_url() .'">'. __('WordPress Admin area', 'scf') .'</a> '. __('to upgrade WordPress and try again.', 'scf');
 			wp_die($msg);
 		}
 	}
@@ -46,18 +51,22 @@ if (isset($_GET['activate']) && $_GET['activate'] == 'true') {
 }
 
 // set some strings
-$value_name = ''; $value_email = ''; $value_response = ''; $value_message  = '';
+$value_name = ''; $value_email = ''; $value_subject = ''; $value_response = ''; $value_message  = '';
+
 if (isset($_POST['scf_name']))     $value_name     = sanitize_text_field($_POST['scf_name']);
-if (isset($_POST['scf_email']))    $value_email    = sanitize_text_field($_POST['scf_email']);
+if (isset($_POST['scf_email']))    $value_email    = sanitize_email($_POST['scf_email']);
+if (isset($_POST['scf_subject']))  $value_subject  = sanitize_text_field($_POST['scf_subject']);
 if (isset($_POST['scf_response'])) $value_response = sanitize_text_field($_POST['scf_response']);
 if (isset($_POST['scf_message']))  $value_message  = sanitize_text_field($_POST['scf_message']);
+
 $scf_strings = array(
 	'name' 	 => '<input name="scf_name" id="scf_name" type="text" size="33" maxlength="99" value="'. $value_name .'" placeholder="' . $scf_options['scf_input_name'] . '" />', 
 	'email'    => '<input name="scf_email" id="scf_email" type="text" size="33" maxlength="99" value="'. $value_email .'" placeholder="' . $scf_options['scf_input_email'] . '" />', 
+	'subject'  => '<input name="scf_subject" id="scf_subject" type="text" size="33" maxlength="99" value="'. $value_subject .'" placeholder="' . $scf_options['scf_input_subject'] . '" />',
 	'response' => '<input name="scf_response" id="scf_response" type="text" size="33" maxlength="99" value="'. $value_response .'" placeholder="' . $scf_options['scf_input_captcha'] . '" />',	
 	'message'  => '<textarea name="scf_message" id="scf_message" cols="33" rows="7" placeholder="' . $scf_options['scf_input_message'] . '">'. $value_message .'</textarea>', 
 	'error'    => ''
-	);
+);
 
 // check for bad stuff
 function scf_malicious_input($input) {
@@ -106,51 +115,63 @@ function scf_get_ip_address() {
 
 // filter input
 function scf_input_filter() {
-
 	global $scf_options, $scf_strings;
 	$pass  = true;
-
-	if(!(isset($_POST['scf_key']))) { 
-		return false;
-	}
-	$scf_name          = sanitize_text_field($_POST['scf_name']);
-	$scf_email         = sanitize_text_field($_POST['scf_email']);
-	$scf_message       = sanitize_text_field($_POST['scf_message']);
-	$sfc_response      = sanitize_text_field($_POST['scf_response']);
+	if (!isset($_POST['scf_key'])) return false;
+	
+	$scf_name = ''; $scf_email = ''; $scf_subject = ''; $scf_message = ''; $sfc_response = '';
+	
+	if (isset($_POST['scf_name']))     $scf_name     = sanitize_text_field($_POST['scf_name']);
+	if (isset($_POST['scf_email']))    $scf_email    = sanitize_email($_POST['scf_email']);
+	if (isset($_POST['scf_subject']))  $scf_subject  = sanitize_text_field($_POST['scf_subject']);
+	if (isset($_POST['scf_message']))  $scf_message  = sanitize_text_field($_POST['scf_message']);
+	if (isset($_POST['scf_response'])) $sfc_response = sanitize_text_field($_POST['scf_response']);
+	
 	$sfc_style         = $scf_options['scf_style'];
 	$sfc_input_name    = $scf_options['scf_input_name'];
 	$sfc_input_mail    = $scf_options['scf_input_email'];
+	$sfc_input_subject = $scf_options['scf_input_subject'];
 	$sfc_input_captcha = $scf_options['scf_input_captcha'];
 	$sfc_input_message = $scf_options['scf_input_message'];
-
+	$sfc_hide_subject  = $scf_options['scf_subject'];
+	
+	if (!isset($_POST['scf-nonce']) || !wp_verify_nonce($_POST['scf-nonce'], 'scf-nonce')) {
+		$pass = false;
+		$fail = 'nonce';
+	}
 	if (empty($scf_name)) {
-		$pass = FALSE;
+		$pass = false;
 		$fail = 'empty';
-		$scf_strings['name'] = '<input class="scf_error" name="scf_name" id="scf_name" type="text" size="33" maxlength="99" value="'. $scf_name .'" ' . $sfc_style . ' placeholder="' . $sfc_input_name . '" />';
+		$scf_strings['name'] = '<input class="scf_error" name="scf_name" id="scf_name" type="text" size="33" maxlength="99" value="'. $scf_name .'" '. $sfc_style .' placeholder="'. $sfc_input_name .'" />';
 	}
 	if (!is_email($scf_email)) {
-		$pass = FALSE; 
+		$pass = false; 
 		$fail = 'empty';
-		$scf_strings['email'] = '<input class="scf_error" name="scf_email" id="scf_email" type="text" size="33" maxlength="99" value="'. $scf_email .'" ' . $sfc_style . ' placeholder="' . $sfc_input_mail . '" />';
+		$scf_strings['email'] = '<input class="scf_error" name="scf_email" id="scf_email" type="text" size="33" maxlength="99" value="'. $scf_email .'" '. $sfc_style .' placeholder="'. $sfc_input_mail .'" />';
+	}
+	if (empty($sfc_hide_subject) && empty($scf_subject)) {
+		$pass = false; 
+		$fail = 'empty';
+		$scf_strings['subject'] = '<input class="scf_error" name="scf_subject" id="scf_subject" type="text" size="33" maxlength="99" value="'. $scf_subject .'" '. $sfc_style .' placeholder="'. $sfc_input_subject .'" />';
 	}
 	if ($scf_options['scf_captcha'] == 1) {
 		if (empty($sfc_response)) {
-			$pass = FALSE; 
+			$pass = false; 
 			$fail = 'empty';
-			$scf_strings['response'] = '<input class="scf_error" name="scf_response" id="scf_response" type="text" size="33" maxlength="99" value="'. $sfc_response .'" ' . $sfc_style . ' placeholder="' . $sfc_input_captcha . '" />';
+			$scf_strings['response'] = '<input class="scf_error" name="scf_response" id="scf_response" type="text" size="33" maxlength="99" value="'. $sfc_response .'" '. $sfc_style .' placeholder="'. $sfc_input_captcha .'" />';
 		}
 		if (!scf_spam_question($sfc_response)) {
-			$pass = FALSE;
+			$pass = false;
 			$fail = 'wrong';
-			$scf_strings['response'] = '<input class="scf_error" name="scf_response" id="scf_response" type="text" size="33" maxlength="99" value="'. $sfc_response .'" ' . $sfc_style . ' placeholder="' . $sfc_input_captcha . '" />';
+			$scf_strings['response'] = '<input class="scf_error" name="scf_response" id="scf_response" type="text" size="33" maxlength="99" value="'. $sfc_response .'" '. $sfc_style .' placeholder="'. $sfc_input_captcha .'" />';
 		}
 	}
 	if (empty($scf_message)) {
-		$pass = FALSE; 
+		$pass = false; 
 		$fail = 'empty';
-		$scf_strings['message'] = '<textarea class="scf_error" name="scf_message" id="scf_message" cols="33" rows="7" ' . $sfc_style . ' placeholder="' . $sfc_input_message . '">'. $scf_message .'</textarea>';
+		$scf_strings['message'] = '<textarea class="scf_error" name="scf_message" id="scf_message" cols="33" rows="7" '. $sfc_style .' placeholder="' . $sfc_input_message .'">'. $scf_message .'</textarea>';
 	}
-	if (scf_malicious_input($scf_name) || scf_malicious_input($scf_email)) {
+	if (scf_malicious_input($scf_name) || scf_malicious_input($scf_email) || scf_malicious_input($scf_subject)) {
 		$pass = false; 
 		$fail = 'malicious';
 	}
@@ -158,12 +179,17 @@ function scf_input_filter() {
 		return true;
 	} else {
 		if ($fail == 'malicious') {
-			$scf_strings['error'] = '<p class="scf_error">Please do not include any of the following in the Name or Email fields: linebreaks, or the phrases "mime-version", "content-type", "cc:" or "to:".</p>';
+			$scf_strings['error'] = '<p class="scf_error">'. __('Please do not include any of the following in the Name, Email, or Subject fields: linebreaks, or the phrases "mime-version", "content-type", "cc:" or "to:".', 'scf') .'</p>';
+		
+		} elseif ($fail == 'nonce') {
+			$scf_strings['error'] = '<p class="scf_error">'. __('Invalid nonce value! Please try again or contact the administrator for help.', 'scf') .'</p>';
+		
 		} elseif ($fail == 'empty') {
 			$scf_strings['error'] = sanitize_text_field($scf_options['scf_error']);
+		
 		} elseif ($fail == 'wrong') {
 			$scf_strings['error'] = sanitize_text_field($scf_options['scf_spam']);
-		}
+		} 
 		return false;
 	}
 }
@@ -191,7 +217,12 @@ function simple_contact_form() {
 // process contact form
 function scf_process_contact_form($content = '') {
 	global $scf_options, $scf_strings;
-	date_default_timezone_set('UTC');
+	
+	$email = ''; $name = ''; $subject = '';
+	
+	if (isset($_POST['scf_email']))   $email   = sanitize_email($_POST['scf_email']);
+	if (isset($_POST['scf_name']))    $name    = sanitize_text_field($_POST['scf_name']);
+	if (isset($_POST['scf_subject'])) $subject = sanitize_text_field($_POST['scf_subject']);
 	
 	$topic     = $scf_options['scf_subject'];
 	$recipient = $scf_options['scf_email'];
@@ -200,29 +231,30 @@ function scf_process_contact_form($content = '') {
 	$success   = $scf_options['scf_success'];
 	$carbon    = $scf_options['scf_carbon'];
 	$offset    = $scf_options['scf_offset'];
+	$prepend   = $scf_options['scf_prepend'];
+	$append    = $scf_options['scf_append'];
 	
-	$email = filter_var($_POST['scf_email'], FILTER_SANITIZE_EMAIL);
-	
-	$name      = sanitize_text_field($_POST['scf_name']);
 	$senderip  = sanitize_text_field(scf_get_ip_address());
 	$agent     = sanitize_text_field($_SERVER['HTTP_USER_AGENT']);
-	$form      = sanitize_text_field(getenv("HTTP_REFERER"));
+	$form      = sanitize_text_field(getenv('HTTP_REFERER'));
 	$host      = sanitize_text_field(gethostbyaddr($_SERVER['REMOTE_ADDR']));
 	
-	$message = stripslashes(htmlentities($_POST['scf_message'], ENT_QUOTES, get_option('blog_charset')));
+	$message = stripslashes(htmlentities($_POST['scf_message'], ENT_QUOTES, get_option('blog_charset', 'UTF-8')));
 	
+	// date_default_timezone_set('UTC');
 	//$date = date("l, F jS, Y @ g:i a", time() + $offset * 60 * 60);
-	$date = date_i18n(get_option('date_format'), current_time('timestamp')) . ' @ ' . date_i18n(get_option('time_format') ,current_time('timestamp'));
-
-	$prepend = sanitize_text_field($scf_options['scf_prepend']);
-	$append  = sanitize_text_field($scf_options['scf_append']);
-
+	$date = date_i18n(get_option('date_format'), current_time('timestamp')) .' @ '. date_i18n(get_option('time_format'), current_time('timestamp'));
+	
+	if (!empty($subject)) $topic = $subject;
+	
 	if (!empty($scf_options['scf_css'])) $scf_custom = '<style>' . $scf_options['scf_css'] . '</style>';
 	else $scf_custom = '';
 
 	$headers  = "MIME-Version: 1.0\n";
 	$headers .= "From: $name <$email>\n";
-	$headers .= "Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\""; 
+	$headers .= "Reply-To: $name <$email>\n";
+	$headers .= "Return-Path: $email\n";
+	$headers .= "Content-Type: text/plain; charset=\"". get_option('blog_charset') ."\"\n"; 
 	
 	
 	
@@ -266,8 +298,9 @@ __('Agent: ', 'scf') . $agent     . "\n\n", ENT_QUOTES, get_option('blog_charset
 	
 	$results = $prepend . '<div id="scf_success" class="scf">' . $success . '
 <pre>' . __('Name: ', 'scf')    . $name  . "\n" . 
-__('Email: ', 'scf')   . $email . "\n" . 
-__('Date: ', 'scf')    . $date  . "\n" . 
+__('Email: ', 'scf')   . $email   . "\n" . 
+__('Subject: ', 'scf') . $topic   . "\n" . 
+__('Date: ', 'scf')    . $date    . "\n" . 
 __('Message: ', 'scf') . "\n\n" . $message . '</pre>'. $reset_link;
 	
 	
@@ -281,26 +314,35 @@ __('Message: ', 'scf') . "\n\n" . $message . '</pre>'. $reset_link;
 // display contact form
 function scf_display_contact_form() {
 	global $scf_options, $scf_strings;
-
-	$question = sanitize_text_field($scf_options['scf_question']);
-	$nametext = sanitize_text_field($scf_options['scf_nametext']);
-	$mailtext = sanitize_text_field($scf_options['scf_mailtext']);
-	$messtext = sanitize_text_field($scf_options['scf_messtext']);
-	$captcha  = sanitize_text_field($scf_options['scf_captcha']);
+	
+	$question = $scf_options['scf_question'];
+	$nametext = $scf_options['scf_nametext'];
+	$subjtext = $scf_options['scf_subjtext'];
+	$mailtext = $scf_options['scf_mailtext'];
+	$messtext = $scf_options['scf_messtext'];
+	$captcha  = $scf_options['scf_captcha'];
 	$offset   = $scf_options['scf_offset'];
 	
 	if ($scf_options['scf_preform'] !== '') {
 		$scf_preform = $scf_options['scf_preform'];
 	} else { $scf_preform = ''; }
-
+	
 	if ($scf_options['scf_appform'] !== '') {
 		$scf_appform = $scf_options['scf_appform'];
 	} else { $scf_appform = ''; }
-
+	
 	if ($scf_options['scf_css'] !== '') {
 		$scf_custom = '<style>' . $scf_options['scf_css'] . '</style>';
 	} else { $scf_custom = ''; }
-
+	
+	if (empty($scf_options['scf_subject'])) {
+		$scf_subject = '
+				<fieldset class="scf-subject">
+					<label for="scf_subject">'. $subjtext .'</label>
+					'. $scf_strings['subject'] .'
+				</fieldset>';
+	} else { $scf_subject = ''; }
+	
 	if ($captcha == 1) {
 		$captcha_box = '
 				<fieldset class="scf-response">
@@ -308,7 +350,7 @@ function scf_display_contact_form() {
 					'. $scf_strings['response'] .'
 				</fieldset>';
 	} else { $captcha_box = ''; }
-
+	
 	$scf_form = ($scf_preform . $scf_strings['error'] . '
 		<div id="simple-contact-form" class="scf">
 			<form action="" method="post">
@@ -319,8 +361,8 @@ function scf_display_contact_form() {
 				<fieldset class="scf-email">
 					<label for="scf_email">'. $mailtext .'</label>
 					'. $scf_strings['email'] .'
-				</fieldset>
-					' . $captcha_box . '
+				</fieldset>'. 
+					$scf_subject . $captcha_box .'
 				<fieldset class="scf-message">
 					<label for="scf_message">'. $messtext .'</label>
 					'. $scf_strings['message'] .'
@@ -328,11 +370,12 @@ function scf_display_contact_form() {
 				<div class="scf-submit">
 					<input type="submit" name="Submit" id="scf_contact" value="' . __('Send email', 'scf') . '">
 					<input type="hidden" name="scf_key" value="process">
+					'. wp_nonce_field('scf-nonce', 'scf-nonce', false, false) .'
 				</div>
 			</form>
 		</div>
 		' . $scf_custom . $scf_appform);
-
+	
 	return apply_filters('scf_filter_contact_form', $scf_form);
 }
 
@@ -341,7 +384,7 @@ add_filter ('plugin_action_links', 'scf_plugin_action_links', 10, 2);
 function scf_plugin_action_links($links, $file) {
 	global $scf_path;
 	if ($file == $scf_path) {
-		$scf_links = '<a href="' . get_admin_url() . 'options-general.php?page=' . $scf_path . '">' . __('Settings', 'scf') .'</a>';
+		$scf_links = '<a href="'. get_admin_url() .'options-general.php?page='. $scf_path .'">'. __('Settings', 'scf') .'</a>';
 		array_unshift($links, $scf_links);
 	}
 	return $links;
@@ -351,7 +394,7 @@ function scf_plugin_action_links($links, $file) {
 function add_scf_links($links, $file) {
 	if ($file == plugin_basename(__FILE__)) {
 		$rate_url = 'http://wordpress.org/support/view/plugin-reviews/' . basename(dirname(__FILE__)) . '?rate=5#postform';
-		$links[] = '<a href="' . $rate_url . '" target="_blank" title="Click here to rate and review this plugin on WordPress.org">Rate this plugin</a>';
+		$links[] = '<a target="_blank" href="'. $rate_url .'" title="Click here to rate and review this plugin on WordPress.org">Rate this plugin</a>';
 	}
 	return $links;
 }
@@ -390,6 +433,7 @@ function scf_add_defaults() {
 			'scf_casing'          => 0,
 			'scf_nametext'        => __('Name (Required)', 'scf'),
 			'scf_mailtext'        => __('Email (Required)', 'scf'),
+			'scf_subjtext'        => __('Subject (Required)', 'scf'),
 			'scf_messtext'        => __('Message (Required)', 'scf'),
 			'scf_success'         => '<p class=\'scf_success\'><strong>' . __('Success!', 'scf') . '</strong> ' . __('Your message has been sent.', 'scf') . '</p>',
 			'scf_error'           => '<p class=\'scf_error\'>' . __('Please complete the required fields.', 'scf') . '</p>',
@@ -404,6 +448,7 @@ function scf_add_defaults() {
 			'scf_carbon'          => 1,
 			'scf_input_name'      => __('Your Name', 'scf'),
 			'scf_input_email'     => __('Your Email', 'scf'),
+			'scf_input_subject'   => __('Email Subject', 'scf'),
 			'scf_input_captcha'   => __('Correct Response', 'scf'),
 			'scf_input_message'   => __('Your Message', 'scf'),
 			'scf_mail_function'   => 1,
@@ -438,6 +483,7 @@ function scf_validate_options($input) {
 
 	$input['scf_nametext'] = wp_filter_nohtml_kses($input['scf_nametext']);
 	$input['scf_mailtext'] = wp_filter_nohtml_kses($input['scf_mailtext']);
+	$input['scf_subjtext'] = wp_filter_nohtml_kses($input['scf_subjtext']);
 	$input['scf_messtext'] = wp_filter_nohtml_kses($input['scf_messtext']);
 
 	// dealing with kses
@@ -482,6 +528,7 @@ function scf_validate_options($input) {
 
 	$input['scf_input_name'] = wp_filter_nohtml_kses($input['scf_input_name']);
 	$input['scf_input_email'] = wp_filter_nohtml_kses($input['scf_input_email']);
+	$input['scf_input_subject'] = wp_filter_nohtml_kses($input['scf_input_subject']);
 	$input['scf_input_captcha'] = wp_filter_nohtml_kses($input['scf_input_captcha']);
 	$input['scf_input_message'] = wp_filter_nohtml_kses($input['scf_input_message']);
 
@@ -556,10 +603,12 @@ function scf_render_form() {
 									<li><?php _e('To configure the contact form, visit the', 'scf'); ?> <a id="mm-panel-primary-link" href="#mm-panel-primary"><?php _e('Options panel', 'scf'); ?></a>.</li>
 									<li><?php _e('For the shortcode and template tag, visit', 'scf'); ?> <a id="mm-panel-secondary-link" href="#mm-panel-secondary"><?php _e('Shortcodes &amp; Template Tags', 'scf'); ?></a>.</li>
 									<li><?php _e('To restore default settings, visit', 'scf'); ?> <a id="mm-restore-settings-link" href="#mm-restore-settings"><?php _e('Restore Default Options', 'scf'); ?></a>.</li>
-									<li><?php _e('For more information check the', 'scf'); ?> <a href="<?php echo plugins_url(); ?>/simple-basic-contact-form/readme.txt">readme.txt</a> 
-									<?php _e('and', 'scf'); ?> <a href="<?php echo $scf_homeurl; ?>"><?php _e('SBCF Homepage', 'scf'); ?></a>.</li>
+									<li>
+										<?php _e('For more information check the', 'scf'); ?> <a target="_blank" href="<?php echo plugins_url('/simple-basic-contact-form/readme.txt', dirname(__FILE__)); ?>">readme.txt</a> 
+										<?php _e('and', 'scf'); ?> <a target="_blank" href="<?php echo $scf_homeurl; ?>"><?php _e('SBCF Homepage', 'scf'); ?></a>.
+									</li>
 									<li><?php _e('If you like this plugin, please', 'scf'); ?> 
-										<a href="http://wordpress.org/support/view/plugin-reviews/<?php echo basename(dirname(__FILE__)); ?>?rate=5#postform" title="<?php _e('Click here to rate and review this plugin on WordPress.org', 'scf'); ?>" target="_blank">
+										<a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/<?php echo basename(dirname(__FILE__)); ?>?rate=5#postform" title="<?php _e('Click here to rate and review this plugin on WordPress.org', 'scf'); ?>">
 											<?php _e('rate it at the Plugin Directory', 'scf'); ?>&nbsp;&raquo;
 										</a>
 									</li>
@@ -592,7 +641,7 @@ function scf_render_form() {
 									<tr>
 										<th scope="row"><label class="description" for="scf_options[scf_subject]"><?php _e('Default Subject', 'scf'); ?></label></th>
 										<td><input type="text" size="50" maxlength="200" name="scf_options[scf_subject]" value="<?php echo $scf_options['scf_subject']; ?>" />
-										<div class="mm-item-caption"><?php _e('What should be the default subject line for the contact messages?', 'scf'); ?></div></td>
+										<div class="mm-item-caption"><?php _e('Specify any value here to hide the Subject field (or leave blank to display the Subject field).', 'scf'); ?></div></td>
 									</tr>
 									<tr>
 										<th scope="row"><label class="description" for="scf_options[scf_captcha]"><?php _e('Enable Captcha', 'scf'); ?></label></th>
@@ -666,32 +715,40 @@ function scf_render_form() {
 										<div class="mm-item-caption"><?php _e('This is the caption that corresponds with the Email field.', 'scf'); ?></div></td>
 									</tr>
 									<tr>
+										<th scope="row"><label class="description" for="scf_options[scf_subjtext]"><?php _e('Caption for Subject Field', 'scf'); ?></label></th>
+										<td><input type="text" size="50" maxlength="200" name="scf_options[scf_subjtext]" value="<?php echo $scf_options['scf_subjtext']; ?>" />
+										<div class="mm-item-caption"><?php _e('This is the caption that corresponds with the Subject field.', 'scf'); ?></div></td>
+									</tr>
+									<tr>
 										<th scope="row"><label class="description" for="scf_options[scf_messtext]"><?php _e('Caption for Message Field', 'scf'); ?></label></th>
 										<td><input type="text" size="50" maxlength="200" name="scf_options[scf_messtext]" value="<?php echo $scf_options['scf_messtext']; ?>" />
 										<div class="mm-item-caption"><?php _e('This is the caption that corresponds with the Message field.', 'scf'); ?></div></td>
 									</tr>
-
 									<tr>
 										<th scope="row"><label class="description" for="scf_options[scf_input_name]"><?php _e('Placeholder for Name Field', 'scf'); ?></label></th>
 										<td><input type="text" size="50" maxlength="200" name="scf_options[scf_input_name]" value="<?php echo $scf_options['scf_input_name']; ?>" />
-										<div class="mm-item-caption"><?php _e('This is the text appearing as the input placeholder for the name input.', 'scf'); ?></div></td>
+										<div class="mm-item-caption"><?php _e('This is the text appearing as the input placeholder for the Name field.', 'scf'); ?></div></td>
 									</tr>
 									<tr>
 										<th scope="row"><label class="description" for="scf_options[scf_input_email]"><?php _e('Placeholder for Email Field', 'scf'); ?></label></th>
 										<td><input type="text" size="50" maxlength="200" name="scf_options[scf_input_email]" value="<?php echo $scf_options['scf_input_email']; ?>" />
-										<div class="mm-item-caption"><?php _e('This is the text appearing as the input placeholder for the email input.', 'scf'); ?></div></td>
+										<div class="mm-item-caption"><?php _e('This is the text appearing as the input placeholder for the Email field.', 'scf'); ?></div></td>
+									</tr>
+									<tr>
+										<th scope="row"><label class="description" for="scf_options[scf_input_subject]"><?php _e('Placeholder for Subject Field', 'scf'); ?></label></th>
+										<td><input type="text" size="50" maxlength="200" name="scf_options[scf_input_subject]" value="<?php echo $scf_options['scf_input_subject']; ?>" />
+										<div class="mm-item-caption"><?php _e('This is the text appearing as the input placeholder for the Subject field.', 'scf'); ?></div></td>
 									</tr>
 									<tr>
 										<th scope="row"><label class="description" for="scf_options[scf_input_captcha]"><?php _e('Placeholder for Captcha Field', 'scf'); ?></label></th>
 										<td><input type="text" size="50" maxlength="200" name="scf_options[scf_input_captcha]" value="<?php echo $scf_options['scf_input_captcha']; ?>" />
-										<div class="mm-item-caption"><?php _e('This is the text appearing as the input placeholder for the captcha input.', 'scf'); ?></div></td>
+										<div class="mm-item-caption"><?php _e('This is the text appearing as the input placeholder for the Captcha field.', 'scf'); ?></div></td>
 									</tr>
 									<tr>
 										<th scope="row"><label class="description" for="scf_options[scf_input_message]"><?php _e('Placeholder for Message Field', 'scf'); ?></label></th>
 										<td><input type="text" size="50" maxlength="200" name="scf_options[scf_input_message]" value="<?php echo $scf_options['scf_input_message']; ?>" />
-										<div class="mm-item-caption"><?php _e('This is the text appearing as the input placeholder for the message input.', 'scf'); ?></div></td>
+										<div class="mm-item-caption"><?php _e('This is the text appearing as the input placeholder for the Message field.', 'scf'); ?></div></td>
 									</tr>
-
 								</table>
 							</div>
 							<h4><?php _e('Success &amp; error messages', 'scf'); ?></h4>
@@ -781,7 +838,7 @@ function scf_render_form() {
 				</div>
 			</div>
 			<div id="mm-credit-info">
-				<a target="_blank" href="<?php echo $scf_homeurl; ?>" title="<?php echo $scf_plugin; ?> Homepage"><?php echo $scf_plugin; ?></a> by 
+				<a target="_blank" href="<?php echo $scf_homeurl; ?>" title="<?php echo $scf_plugin; ?> Homepage"><?php echo $scf_plugin; ?></a> <?php _e('by', 'scf'); ?> 
 				<a target="_blank" href="http://twitter.com/perishable" title="Jeff Starr on Twitter">Jeff Starr</a> @ 
 				<a target="_blank" href="http://monzilla.biz/" title="Obsessive Web Design &amp; Development">Monzilla Media</a>
 			</div>
@@ -827,4 +884,4 @@ function scf_render_form() {
 		});
 	</script>
 
-<?php } ?>
+<?php }

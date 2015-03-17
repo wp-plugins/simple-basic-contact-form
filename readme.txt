@@ -3,17 +3,18 @@
 Plugin Name: Simple Basic Contact Form
 Plugin URI: http://perishablepress.com/simple-basic-contact-form/
 Description: Delivers a clean, secure, plug-n-play contact form for WordPress.
+Tags: contact, form, contact form, email, mail, captcha
 Author: Jeff Starr
 Author URI: http://monzilla.biz/
-Contributors: specialk
 Donate link: http://m0n.co/donate
-Requires at least: 3.7
-Tested up to: 4.0
-Version: 20140925
+Contributors: specialk
+Requires at least: 3.8
+Tested up to: 4.1
 Stable tag: trunk
-License: GPL v2
-Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
-Tags: contact, form, contact form, email, mail, captcha
+Version: 20150317
+Text Domain: scf
+Domain Path: /languages/
+License: GPL v2 or later
 
 Simple Basic Contact Form is a clean, secure, plug-n-play contact form for WordPress.
 
@@ -74,6 +75,8 @@ Typical plugin install: upload, activate, and customize in the WP Admin.
 3. Use the template tag to display the SBCF anywhere in your theme.
 4. Visit the SBCF Settings Page to configure your options and for more information.
 
+Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
+
 **Shortcode**
 
 	[simple_contact_form]
@@ -97,6 +100,22 @@ To upgrade the plugin, remove old version and replace with new version. Nothing 
 Screenshots available at the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/#screenshots).
 
 == Changelog ==
+
+**20150317**
+
+* New! added subject field to the form
+* Tested with latest version of WP (4.1)
+* Increased minimum version to WP 3.8
+* Removed deprecated screen_icon()
+* Added $scf_wp_vers for version check
+* Added UTF-8 as default for WP option used in htmlentities()
+* Replace sanitize_text_field() and filter_var() with sanitize_email() for email address
+* Streamline/fine-tune plugin code
+* Added nonce security to the form
+* Localized some missing strings
+* Added Reply-To and Return-Path to email headers
+* Added Text Domain and Domain Path to file header
+* Replaced default .mo/.po templates with .pot template
 
 **20140925**
 
@@ -200,6 +219,11 @@ To ask a question, visit the [SBCF Homepage](http://perishablepress.com/simple-b
 
 == Donations ==
 
-I created this plugin with love for the WP community. To show support, consider purchasing one of my books: [The Tao of WordPress](http://wp-tao.com/), [Digging into WordPress](http://digwp.com/), or [.htaccess made easy](http://htaccessbook.com/).
+I created this plugin with love for the WP community. To show support, you can [make a donation](http://m0n.co/donate) or purchase one of my books: 
+
+* [The Tao of WordPress](http://wp-tao.com/)
+* [Digging into WordPress](http://digwp.com/)
+* [.htaccess made easy](http://htaccessbook.com/)
+* [WordPress Themes In Depth](http://wp-tao.com/wordpress-themes-book/)
 
 Links, tweets and likes also appreciated. Thanks! :)
