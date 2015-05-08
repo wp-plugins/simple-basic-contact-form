@@ -26,7 +26,7 @@ Simple Basic Contact Form is a clean, secure, plug-n-play contact form for WordP
 
 * Plug-n-play: use shortcode or template tag to display the form anywhere on your site
 * Sweet emails: SBCF sends descriptive, well-formatted email messages in plain-text
-* Safe and secure: Simple Basic Contact Form blocks spam and filters malicious content
+* Safe and secure: SBCF blocks spam and protects against malicious content
 * Ultra-clean code: SBCF is lightweight, standards-compliant, semantic, valid markup
 * Fully customizable: SBCF is easy to configure and style from the Settings page
 
