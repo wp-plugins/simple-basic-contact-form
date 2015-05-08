@@ -1,17 +1,17 @@
 <?php 
 /*
 	Plugin Name: Simple Basic Contact Form
-	Plugin URI: http://perishablepress.com/simple-basic-contact-form/
+	Plugin URI: https://perishablepress.com/simple-basic-contact-form/
 	Description: Delivers a clean, secure, plug-n-play contact form for WordPress.
 	Tags: contact, form, contact form, email, mail, captcha
 	Author: Jeff Starr
 	Author URI: http://monzilla.biz/
 	Donate link: http://m0n.co/donate
 	Contributors: specialk
-	Requires at least: 3.8
-	Tested up to: 4.1
+	Requires at least: 3.9
+	Tested up to: 4.2
 	Stable tag: trunk
-	Version: 20150317
+	Version: 20150507
 	Text Domain: scf
 	Domain Path: /languages/
 	License: GPL v2 or later
@@ -19,12 +19,12 @@
 
 if (!function_exists('add_action')) die();
 
-$scf_wp_vers = '3.8';
-$scf_version = '20150317';
+$scf_wp_vers = '3.9';
+$scf_version = '20150507';
 $scf_plugin  = __('Simple Basic Contact Form', 'scf');
 $scf_options = get_option('scf_options');
 $scf_path    = plugin_basename(__FILE__); // 'simple-basic-contact-form/simple-basic-contact-form.php';
-$scf_homeurl = 'http://perishablepress.com/simple-basic-contact-form/';
+$scf_homeurl = 'https://perishablepress.com/simple-basic-contact-form/';
 
 // date_default_timezone_set('UTC');
 
@@ -185,10 +185,10 @@ function scf_input_filter() {
 			$scf_strings['error'] = '<p class="scf_error">'. __('Invalid nonce value! Please try again or contact the administrator for help.', 'scf') .'</p>';
 		
 		} elseif ($fail == 'empty') {
-			$scf_strings['error'] = sanitize_text_field($scf_options['scf_error']);
+			$scf_strings['error'] = $scf_options['scf_error'];
 		
 		} elseif ($fail == 'wrong') {
-			$scf_strings['error'] = sanitize_text_field($scf_options['scf_spam']);
+			$scf_strings['error'] = $scf_options['scf_spam'];
 		} 
 		return false;
 	}
@@ -597,7 +597,7 @@ function scf_render_form() {
 								<p>
 									<strong><?php echo $scf_plugin; ?></strong> <?php _e('(SBCF) is a simple basic contact form for your WordPress-powered website. Automatically sends a carbon copy to the sender.', 'scf'); ?>
 									<?php _e('Simply choose your options, then add the shortcode to any post or page to display the contact form. For a contact form with more options try ', 'scf'); ?> 
-									<a href="http://perishablepress.com/contact-coldform/">Contact Coldform</a>.
+									<a href="https://perishablepress.com/contact-coldform/">Contact Coldform</a>.
 								</p>
 								<ul>
 									<li><?php _e('To configure the contact form, visit the', 'scf'); ?> <a id="mm-panel-primary-link" href="#mm-panel-primary"><?php _e('Options panel', 'scf'); ?></a>.</li>
@@ -831,7 +831,7 @@ function scf_render_form() {
 						<h3><?php _e('Updates &amp; Info', 'scf'); ?></h3>
 						<div class="toggle">
 							<div id="mm-iframe-wrap">
-								<iframe src="http://perishablepress.com/current/index-scf.html"></iframe>
+								<iframe src="https://perishablepress.com/current/index-scf.html"></iframe>
 							</div>
 						</div>
 					</div>
@@ -839,7 +839,7 @@ function scf_render_form() {
 			</div>
 			<div id="mm-credit-info">
 				<a target="_blank" href="<?php echo $scf_homeurl; ?>" title="<?php echo $scf_plugin; ?> Homepage"><?php echo $scf_plugin; ?></a> <?php _e('by', 'scf'); ?> 
-				<a target="_blank" href="http://twitter.com/perishable" title="Jeff Starr on Twitter">Jeff Starr</a> @ 
+				<a target="_blank" href="https://twitter.com/perishable" title="Jeff Starr on Twitter">Jeff Starr</a> @ 
 				<a target="_blank" href="http://monzilla.biz/" title="Obsessive Web Design &amp; Development">Monzilla Media</a>
 			</div>
 		</form>

@@ -1,17 +1,17 @@
 === Simple Basic Contact Form ===
 
 Plugin Name: Simple Basic Contact Form
-Plugin URI: http://perishablepress.com/simple-basic-contact-form/
+Plugin URI: https://perishablepress.com/simple-basic-contact-form/
 Description: Delivers a clean, secure, plug-n-play contact form for WordPress.
 Tags: contact, form, contact form, email, mail, captcha
 Author: Jeff Starr
 Author URI: http://monzilla.biz/
 Donate link: http://m0n.co/donate
 Contributors: specialk
-Requires at least: 3.8
-Tested up to: 4.1
+Requires at least: 3.9
+Tested up to: 4.2
 Stable tag: trunk
-Version: 20150317
+Version: 20150507
 Text Domain: scf
 Domain Path: /languages/
 License: GPL v2 or later
@@ -20,7 +20,7 @@ Simple Basic Contact Form is a clean, secure, plug-n-play contact form for WordP
 
 == Description ==
 
-[Simple Basic Contact Form](http://perishablepress.com/simple-basic-contact-form/) is a clean, secure, plug-n-play contact form for WordPress. Minimal yet flexible, SBCF delivers clean code, solid performance, and ease of use. No frills, no gimmicks, just a straight-up contact form that's easy to set up and customize.
+[Simple Basic Contact Form](https://perishablepress.com/simple-basic-contact-form/) is a clean, secure, plug-n-play contact form for WordPress. Minimal yet flexible, SBCF delivers clean code, solid performance, and ease of use. No frills, no gimmicks, just a straight-up contact form that's easy to set up and customize.
 
 **Overview**
 
@@ -77,6 +77,8 @@ Typical plugin install: upload, activate, and customize in the WP Admin.
 
 Usage: Visit the plugin's settings page for shortcodes, template tags, and more information.
 
+[More info on installing WP plugins](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins)
+
 **Shortcode**
 
 	[simple_contact_form]
@@ -87,9 +89,8 @@ Usage: Visit the plugin's settings page for shortcodes, template tags, and more 
 
 **Resources**
 
-* Check out the [SBCF Demo](http://bluefeed.net/wordpress/simple-basic-contact-form/)
-* Visit the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/)
-* View a [complete set of CSS hooks](http://perishablepress.com/simple-basic-contact-form/#markup-styles)
+* Visit the [SBCF Homepage](https://perishablepress.com/simple-basic-contact-form/)
+* View a [complete set of CSS hooks](https://perishablepress.com/simple-basic-contact-form/#markup-styles)
 
 == Upgrade Notice ==
 
@@ -97,9 +98,16 @@ To upgrade the plugin, remove old version and replace with new version. Nothing 
 
 == Screenshots ==
 
-Screenshots available at the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/#screenshots).
+Screenshots available at the [SBCF Homepage](https://perishablepress.com/simple-basic-contact-form/#screenshots).
 
 == Changelog ==
+
+**20150507**
+
+* Tested with WP 4.2 + 4.3 (alpha)
+* Changed a few "http" links to "https"
+* Added Dutch translation; thanks to [Martijn van Es](https://github.com/devanes)
+* Bugfix: HTML attributes were being stripped from custom error messages
 
 **20150317**
 
@@ -211,19 +219,17 @@ Initial release.
 
 == Frequently Asked Questions ==
 
-[Check out the SBCF Demo](http://bluefeed.net/simple-basic-contact-form/)
+Note: for a contact form with more options and features, check out [Contact Coldform](https://perishablepress.com/contact-coldform/).
 
-Note: for a contact form with more options and features, check out [Contact Coldform](http://perishablepress.com/contact-coldform/).
-
-To ask a question, visit the [SBCF Homepage](http://perishablepress.com/simple-basic-contact-form/) or [contact me](http://perishablepress.com/contact/).
+To ask a question, visit the [SBCF Homepage](https://perishablepress.com/simple-basic-contact-form/) or [contact me](https://perishablepress.com/contact/).
 
 == Donations ==
 
 I created this plugin with love for the WP community. To show support, you can [make a donation](http://m0n.co/donate) or purchase one of my books: 
 
-* [The Tao of WordPress](http://wp-tao.com/)
-* [Digging into WordPress](http://digwp.com/)
-* [.htaccess made easy](http://htaccessbook.com/)
-* [WordPress Themes In Depth](http://wp-tao.com/wordpress-themes-book/)
+* [The Tao of WordPress](https://wp-tao.com/)
+* [Digging into WordPress](https://digwp.com/)
+* [.htaccess made easy](https://htaccessbook.com/)
+* [WordPress Themes In Depth](https://wp-tao.com/wordpress-themes-book/)
 
 Links, tweets and likes also appreciated. Thanks! :)
