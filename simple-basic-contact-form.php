@@ -8,10 +8,10 @@
 	Author URI: http://monzilla.biz/
 	Donate link: http://m0n.co/donate
 	Contributors: specialk
-	Requires at least: 3.9
-	Tested up to: 4.2
+	Requires at least: 4.0
+	Tested up to: 4.3
 	Stable tag: trunk
-	Version: 20150507
+	Version: 20150808
 	Text Domain: scf
 	Domain Path: /languages/
 	License: GPL v2 or later
@@ -19,8 +19,8 @@
 
 if (!function_exists('add_action')) die();
 
-$scf_wp_vers = '3.9';
-$scf_version = '20150507';
+$scf_wp_vers = '4.0';
+$scf_version = '20150808';
 $scf_plugin  = __('Simple Basic Contact Form', 'scf');
 $scf_options = get_option('scf_options');
 $scf_path    = plugin_basename(__FILE__); // 'simple-basic-contact-form/simple-basic-contact-form.php';
